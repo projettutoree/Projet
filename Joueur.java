@@ -1,5 +1,8 @@
 public class Joueur {
 
+	private static String couleurs = {"ROUGE", "JAUNE", "VERT",
+	                                  "BLEU", "VIOLET", "ROSE"};
+
 	private String nom;
 	private int points;
 	private boolean hasModifieProg;
