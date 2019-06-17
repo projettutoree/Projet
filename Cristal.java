@@ -1,8 +1,9 @@
-public class Cristal extends caseHexa {
+public class Cristal extends CaseHexa {
 	private int valeur;
 	private String couleur;
 
-	public Cristal(int valeur, String couleur) {
+	public Cristal(int posX, int posY, int valeur, String couleur) {
+		super(posX, posY);
 		this.valeur = valeur;
 		this.couleur = couleur;
 	}

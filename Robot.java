@@ -8,9 +8,8 @@ public class Robot extends CaseHexa {
 	private Cristal cristal;
 
 	public Robot(int posX, int posY, int dir, int numero) {
+		super(posX, posY);
 		this.numero = numero;
-		this.posX = posX;
-		this.posY = posY;
 		this.dir = dir;
 
 		this.cristal = null;
