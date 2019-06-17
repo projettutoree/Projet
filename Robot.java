@@ -5,14 +5,18 @@ public class Robot extends CaseHexa {
 
 	private int dir;
 
+	private Cristal cristal;
+
 	public Robot(int posX, int posY, int numero) {
 		this.numero = numero;
 		this.posX = posX;
 		this.posY = posY;
 
+		this.cristal = null;
+		this.instructions = null;
 	}
 
-	public void deplacer(int posX, int posY) {
+	public void avancer(int posX, int posY) {
 		this.posX = posX;
 		this.posY = posY;
 	}
@@ -31,13 +35,32 @@ public class Robot extends CaseHexa {
 
 	public void tourner(int sens) {
 		// %6 car modulo de Case hexagonale
-		this.dir = (this.dir + sens)%6;
+		this.dir = (this.dir + sens) % 6;
 	}
-	
+
 	public String[] getInstrution() {
 		return this.instructions;
 	}
+
 	public void setInstruction(String[] instruction) {
 		this.instructions = instructions;
+	}
+
+	public void charger(Cristal cristal) {
+		this.cristal = cristal;
+	}
+
+	public Cristal getCristal() {
+		return this.cristal;
+	}
+
+	public void decharger() {
+		this.cristal = null;
+	}
+
+	public String toString() {
+		String s = "";
+		s += "(" + posX + ";" + posY + ";" + dir + ")";
+		return s;
 	}
 }
