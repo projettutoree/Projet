@@ -2,25 +2,28 @@ import java.util.ArrayList;
 
 public class Plateau
 {
-	private ArrayList<CaseHexa> alCase;
-	private ArrayList<Joueur> alJoueur;
+	/*private ArrayList<CaseHexa> alCase;
+	private ArrayList<Joueur> alJoueur;*/
 
-	private int ligMax;
-	private int colMax;
+	private int numLigMax;
+	private int numColMax;
 
 	private int nbJCourant;
 	private int nbRCourant;
 
 	public Plateau()
 	{
-		this.alCase = new ArrayList<CaseHexa>();
-		this.alJoueur = new ArrayList<Joueur>();
+		/*this.alCase = new ArrayList<CaseHexa>();
+		this.alJoueur = new ArrayList<Joueur>();*/
+
+		this.numColMax = 10;
+		this.numLigMax = 10;
 
 		this.nbJCourant = 1;
 	}
 
-	public int getJoueurCourant() { return this.nbJCourant; }
-	public void changerJoueur() { ++this.nbJCourant%this.alJoueur.size();}
+	/*public int getJoueurCourant() { return this.nbJCourant; }
+	public void changerJoueur() { this.nbJCourant = (this.nbJCourant++)%this.alJoueur.size();}
 
 	public boolean checkDeplacement()
 	{
@@ -30,14 +33,33 @@ public class Plateau
 	public boolean checkRamassage()
 	{
 		Robot roboTemp = this.alJoueur.get(this.nbJCourant).get(nbRCourant);
+		int[] coordsCaseSvt = this.getCaseSvt(roboTemp);
+
+		for (CaseHexa c : this.alCase)
+		{
+			if (c.getPosX() == coordsCaseSvt[0] && c.getPosX() == coordsCaseSvt[1])
+			{
+				if (c.getClass().getName().equals("Cristal"))
+					return true;
+			}
+		}
+
+		return false;
+	}
+
+	public boolean estOOB(int[] coords)
+	{
+		if (coords[0] < 0 || coords[1] < 0)
+			return true;
+		if (coords[0] > nbLigMax || coords[1] > this.numColMax - (Math.abs(this.numColMax/2-coords[0])))
+			return true;
+		return false;
 	}
 
 	public boolean checkDepot()
 	{
 		Robot roboTemp      = this.alJoueur.get(this.nbJCourant).get(nbRCourant);
 		int[] coordsCaseSvt = this.getCaseSvt(roboTemp);
-
-		if ()
 
 		for (CaseHexa c : this.alCase)
 		{
@@ -48,7 +70,7 @@ public class Plateau
 			}
 		}
 
-		return true;
+		return !(this.estOOB(coordsCaseSvt));
 	}
 
 	public void excuterInstructions()
@@ -117,5 +139,46 @@ public class Plateau
 		}
 
 		return tabCoord;
+	}*/
+
+	public String toString()
+	{
+		String s = "";
+
+		for (int i=0; i<=this.numLigMax; i++)
+		{
+			for (int k=0; k<3; k++)
+			{
+				if(i%2 == 0)
+					s += " ";
+				for (int j=0; j<(Math.abs(this.numColMax/2-i))/2; j++)
+				{
+					s += "   ";
+				}
+				if (i != 1)
+				{
+					for (int j=0; j<this.numColMax - (Math.abs(this.numColMax/2-i)); j++)
+					{
+						s += "|___| ";
+					}
+				}
+				else
+				{
+					for (int j=0; j<this.numColMax - (Math.abs(this.numColMax/2-i)); j++)
+					{
+						s += "|  | ";
+					}
+				}
+				s+="\n";
+			}
+			s += "\n";
+		}
+
+		return s;
+	}
+
+	public static void main (String[] args)
+	{
+		System.out.println(new Plateau());
 	}
 }
