@@ -6,6 +6,7 @@ public class Cristal extends CaseHexa {
 		super(posX, posY);
 		this.valeur = valeur;
 		this.couleur = couleur;
+		this.poussable = true;
 	}
 
 	public int getValeur() {

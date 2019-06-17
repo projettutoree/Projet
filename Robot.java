@@ -11,6 +11,7 @@ public class Robot extends CaseHexa {
 		super(posX, posY);
 		this.numero = numero;
 		this.dir = dir;
+		this.poussable = true;
 
 		this.cristal = null;
 		this.instructions = null;

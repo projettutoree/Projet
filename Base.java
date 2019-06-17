@@ -5,6 +5,7 @@ public class Base extends CaseHexa {
 	public Base(int posX, int posY, Joueur monJoueur) {
 		super(posX, posY);
 		this.monJoueur = monJoueur;
+		this.poussable = false;
 	}
 
 	public void gagnePoints(Cristal cristal) {
