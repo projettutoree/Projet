@@ -106,18 +106,6 @@ public class Robot extends CaseHexa {
 		return this.cristal;
 	}
 
-	public void decharger(Base base) {
-		this.cristal = null;
-	}
-
-	public void setPosX(int posX) {
-		this.posX = posX;
-	}
-
-	public void setPosY(int posY) {
-		this.posX = posY;
-	}
-
 	public String toString() {
 		String s = "";
 		s += "(" + posX + ";" + posY + ";" + dir + ")";
