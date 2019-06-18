@@ -11,19 +11,7 @@ public class Cristal extends CaseHexa {
 		return this.valeur;
 	}
 
-    public int getPosX() {
-		return this.posX;
-	}
 
-	public int getPosY() {
-		return this.posY;
-	}
 
-	public void setPosX(int posX) {
-		this.posX = posX;
-	}
-
-	public void setPosY(int posY) {
-		this.posX = posY;
-	}
+	
 }

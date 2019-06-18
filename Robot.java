@@ -20,7 +20,7 @@ public class Robot extends CaseHexa {
 
 	public void tourner(int sens) {
 		// %6 car modulo de Case hexagonale
-		this.dir = (this.dir + sens) % 6;
+		this.dir = (this.dir + sens + 6) % 6;
 	}
 
 	public void setOrdres(String[] ordres) {
@@ -35,22 +35,20 @@ public class Robot extends CaseHexa {
 	}
 
 	/**
-	  * Retire et renvoi l'ordre de l'emplacement s'il n'est pas null,
-	  * et le place à null
-	  * Renvoie null sinon
-	  */
+	 * Retire et renvoi l'ordre de l'emplacement s'il n'est pas null, et le place à
+	 * null Renvoie null sinon
+	 */
 	public String retirerOrdre(int idOrdre) {
-		if(this.ordres[idOrdre] != null) {
+		if (this.ordres[idOrdre] != null) {
 			String retour = this.ordres[idOrdre];
 			this.ordres[idOrdre] = null;
 			return retour;
-		}
-		else
+		} else
 			return null;
 	}
 
 	public boolean redemarrer() {
-		for(String o : ordres) {
+		for (String o : ordres) {
 			o = null;
 		}
 		return true;
@@ -64,27 +62,10 @@ public class Robot extends CaseHexa {
 		this.cristal = null;
 	}
 
-
-	public void setPosX(int posX) {
-		this.posX = posX;
-	}
-
-	public void setPosY(int posY) {
-		this.posX = posY;
-	}
-
-
 	/***********************/
-	/*      Accesseurs     */
+	/* Accesseurs */
 	/***********************/
 
-	public int getPosX() {
-		return this.posX;
-	}
-
-	public int getPosY() {
-		return this.posY;
-	}
 
 	public int getDir() {
 		return this.dir;
@@ -108,7 +89,7 @@ public class Robot extends CaseHexa {
 
 	public String toString() {
 		String s = "";
-		s += "(" + posX + ";" + posY + ";" + dir + ")";
+		s += this.getClass().getName()+":(" + posX + ";" + posY + ";" + dir + ")";
 		return s;
 	}
 }
