@@ -12,5 +12,13 @@ public abstract class CaseHexa  {
 	public boolean getPoussable() {
 		return this.poussable;
 	}
+	
+	public int getPosX() {
+		return this.posX;
+	}
+	
+	public int getPosY() {
+		return this.posY;
+	}
 
 }
