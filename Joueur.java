@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Joueur {
 
 	private static String couleurs = {"ROUGE", "JAUNE", "VERT",
@@ -6,21 +8,20 @@ public class Joueur {
 	private String nom;
 	private int points;
 	private boolean hasModifieProg;
-	private Robot[] tabRobot;
+	private ArrayList<Robot> alRobot;
 
 	public Joueur(String nom) {
 		this.nom = nom;
 
 		this.points = 0;
 		this.hasModifieProg = false;
-		this.tabRobot = new Robot[2];
+		this.alRobot = new ArrayList<Robot>();
 	}
 
 	// Méthode appelée une seule fois, lors de l'initialisation
 	// de la partie.
-	public void setRobots(Robot robot1, Robot robot2) {
-		this.tabRobot[0] = robot1;
-		this.tabRobot[1] = robot2;
+	public void setRobots(Robot robot) {
+		this.alRobot.add(robot);
 	}
 
 	public void gagnePoints(int points) {
