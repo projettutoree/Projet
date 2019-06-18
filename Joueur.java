@@ -2,29 +2,24 @@ import java.util.ArrayList;
 
 public class Joueur {
 
-	private static String couleurs = {"ROUGE", "JAUNE", "VERT",
-	                                  "BLEU", "VIOLET", "ROSE"};
+	private static String[] couleurs = { "ROUGE", "JAUNE", "VERT", "BLEU", "VIOLET", "ROSE" };
 
-	private String nom;
+	private int identifiant;
 	private int points;
 	private boolean hasModifieProg;
 	private ArrayList<Robot> alRobot;
 
-	public Joueur(String nom) {
-		this.nom = nom;
+	public Joueur(int identifiant) {
+		this.identifiant = identifiant;
 
 		this.points = 0;
 		this.hasModifieProg = false;
 		this.alRobot = new ArrayList<Robot>();
 	}
 
-	public void permutterOrdre(int idRobot, int ordre1, int ordre2) {
-
-	}
-
 	// Méthode appelée une seule fois, lors de l'initialisation
 	// de la partie.
-	public void setRobots(Robot robot) {
+	public void addRobot(Robot robot) {
 		this.alRobot.add(robot);
 	}
 
@@ -32,8 +27,8 @@ public class Joueur {
 		this.points += points;
 	}
 
-	public Robot[] getRobots() {
-		return this.tabRobot;
+	public ArrayList<Robot> getRobots() {
+		return this.alRobot;
 	}
 
 	public int getPoints() {
