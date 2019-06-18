@@ -179,9 +179,9 @@ public class Plateau
 			this.alCase.get(this.alCase.size()-1).setPosY(coordsCaseSvt[1]);
 			System.out.println(coordsCaseSvt[0]);
 			System.out.println(coordsCaseSvt[1]);
-			robotTemp.decharger(null);
+			robotTemp.deposer();
 		}
-		robotTemp.decharger(b);
+		robotTemp.deposer();
 	}
 
 	public void executerInstructions(String s)

@@ -24,6 +24,6 @@ public class Cristal extends CaseHexa {
 	}
 
 	public void setPosY(int posY) {
-		this.posX = posY;
+		this.posY = posY;
 	}
 }

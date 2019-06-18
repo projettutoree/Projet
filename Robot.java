@@ -60,7 +60,7 @@ public class Robot extends CaseHexa {
 		this.cristal = cristal;
 	}
 
-	public void decharger() {
+	public void deposer() {
 		this.cristal = null;
 	}
 

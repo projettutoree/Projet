@@ -5,12 +5,13 @@ public class Joueur {
 	private static String[] couleurs     = { "ROUGE", "JAUNE", "VERT",
 	                                       "BLEU", "VIOLET", "ROSE"};
 
-	private static String[] ordresString = { "ZAP", "AVANCER X1", "AVANCER X2" ,
-                                             "TOURNER GAUCHE", "TOURNER DROITE",
-						         "CHARGER", "DECHARGER", "DOUBLE"  };
+	private static String[] ordresString = { "AVANCER X1", "AVANCER X2" ,
+                                               "TOURNER GAUCHE", "TOURNER DROITE",
+						           "CHARGER", "DEPOSER", "ZAP"};
 
 	private int identifiant;
 	private int points;
+	private boolean jokerDouble;
 	private boolean hasModifieProg;
 	private int[] etatOrdres;
 	private ArrayList<Robot> alRobot;
@@ -24,7 +25,7 @@ public class Joueur {
 
 		// Les ID du tableau ordresString correspond aux ID du tableau
 		// etatOrdres. Il a y donc 2 ZAP, 2 AVANCER X1 etc...
-		this.etatOrdres = new int[]{2,2,1,3,3,2,2,1};
+		this.etatOrdres = new int[]{2,1,3,3,2,2,2};
 
 	}
 
