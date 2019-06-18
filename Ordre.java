@@ -20,10 +20,10 @@ public class Ordre {
 						Ordre.avancer(r);
 						break;
 					case "TOURNER SENS ANTI HORAIRE" :
-						Ordre.tourner(r, -1);
+						r.tourner(-1);
 						break;
 					case "TOURNER SENS HORAIRE" :
-						Ordre.tourner(r, 1);
+						r.tourner(1);
 						break;
 					case "CHARGER" :
 						Ordre.charger(r);
@@ -40,10 +40,6 @@ public class Ordre {
 	}
 
 	private static void avancer(Robot Robot) {
-
-	}
-
-	private static void tourner(Robot Robot, int sens) {
 
 	}
 
