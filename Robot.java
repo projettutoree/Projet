@@ -28,7 +28,7 @@ public class Robot extends CaseHexa {
 	}
 
 	// Retourne un String ordre au cas où on permutte deux ordres
-	public void setOrdre(int idOrdre, String ordreString) {
+	public String setOrdre(int idOrdre, String ordreString) {
 		String ancienOrdre = this.ordres[idOrdre];
 		this.ordres[idOrdre] = ordreString;
 		return ancienOrdre;

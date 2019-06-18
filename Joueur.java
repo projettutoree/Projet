@@ -5,7 +5,7 @@ public class Joueur {
 	private static String[] couleurs     = { "ROUGE", "JAUNE", "VERT",
 	                                       "BLEU", "VIOLET", "ROSE"};
 
-	private static String ordresString = { "ZAP", "AVANCER X1", "AVANCER X2" ,
+	private static String[] ordresString = { "ZAP", "AVANCER X1", "AVANCER X2" ,
                                              "TOURNER GAUCHE", "TOURNER DROITE",
 						         "CHARGER", "DECHARGER", "DOUBLE"  };
 
@@ -24,7 +24,7 @@ public class Joueur {
 
 		// Les ID du tableau ordresString correspond aux ID du tableau
 		// etatOrdres. Il a y donc 2 ZAP, 2 AVANCER X1 etc...
-		this.etatOrdres = {2,2,1,3,3,2,2,1};
+		this.etatOrdres = new int[]{2,2,1,3,3,2,2,1};
 
 	}
 
@@ -44,7 +44,7 @@ public class Joueur {
 		else {
 			this.etatOrdres[emplacementOrdre]--;
 			String ordreRetour = this.alRobot.get(idRobot).
-			                          setOrdre(Joueur.ordresString[emplacementOrdre]);
+			                          setOrdre(idOrdre, Joueur.ordresString[emplacementOrdre]);
 
 			// On remet la tuile ordre au joueur s'il y en avait une
 			if(ordreRetour != null) {
