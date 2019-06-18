@@ -1,6 +1,5 @@
 public class Cristal extends CaseHexa {
 	private int valeur;
-	private String couleur;
 
 	public Cristal(int posX, int posY, int valeur) {
 		super(posX, posY);
@@ -12,7 +11,19 @@ public class Cristal extends CaseHexa {
 		return this.valeur;
 	}
 
-	public String getCouleur() {
-		return this.couleur;
+    public int getPosX() {
+		return this.posX;
+	}
+
+	public int getPosY() {
+		return this.posY;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public void setPosY(int posY) {
+		this.posX = posY;
 	}
 }

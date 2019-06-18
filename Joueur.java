@@ -2,21 +2,21 @@ import java.util.ArrayList;
 
 public class Joueur {
 
-	private static String couleurs     = { "ROUGE", "JAUNE", "VERT",
+	private static String[] couleurs     = { "ROUGE", "JAUNE", "VERT",
 	                                       "BLEU", "VIOLET", "ROSE"};
 
 	private static String ordresString = { "ZAP", "AVANCER X1", "AVANCER X2" ,
                                              "TOURNER GAUCHE", "TOURNER DROITE",
 						         "CHARGER", "DECHARGER", "DOUBLE"  };
 
-	private String nom;
+	private int identifiant;
 	private int points;
 	private boolean hasModifieProg;
 	private int[] etatOrdres;
 	private ArrayList<Robot> alRobot;
 
-	public Joueur(int id) {
-		//this.nom = nom;
+	public Joueur(int identifiant) {
+		this.identifiant = identifiant;
 
 		this.points = 0;
 		this.hasModifieProg = false;
@@ -93,16 +93,16 @@ public class Joueur {
 
 	// Méthode appelée une seule fois, lors de l'initialisation
 	// de la partie.
-	public void setRobots(Robot robot) {
-		this.alRobot.add(robot);
+	public void addRobot(Robot r) {
+		this.alRobot.add(r);
 	}
 
 	public void gagnePoints(int points) {
 		this.points += points;
 	}
 
-	public Robot[] getRobots() {
-		return this.tabRobot;
+	public ArrayList<Robot> getRobots() {
+		return this.alRobot;
 	}
 
 	public int getPoints() {

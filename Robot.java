@@ -65,6 +65,15 @@ public class Robot extends CaseHexa {
 	}
 
 
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public void setPosY(int posY) {
+		this.posX = posY;
+	}
+
+
 	/***********************/
 	/*      Accesseurs     */
 	/***********************/
@@ -89,8 +98,24 @@ public class Robot extends CaseHexa {
 		return this.ordres[idOrdre];
 	}
 
+	public boolean estCharge() {
+		return this.cristal != null;
+	}
+
 	public Cristal getCristal() {
 		return this.cristal;
+	}
+
+	public void decharger(Base base) {
+		this.cristal = null;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public void setPosY(int posY) {
+		this.posX = posY;
 	}
 
 	public String toString() {
