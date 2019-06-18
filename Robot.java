@@ -1,5 +1,4 @@
 public class Robot extends CaseHexa {
-	
 	private String[] instructions;
 
 	private int dir;
@@ -13,11 +12,6 @@ public class Robot extends CaseHexa {
 
 		this.cristal = null;
 		this.instructions = null;
-	}
-
-	public void avancer(int posX, int posY) {
-		this.posX = posX;
-		this.posY = posY;
 	}
 
 	public int getPosX() {
@@ -37,7 +31,7 @@ public class Robot extends CaseHexa {
 		return this.dir;
 	}
 
-	public String[] getInstrution() {
+	public String[] getInstructions() {
 		return this.instructions;
 	}
 
@@ -49,12 +43,24 @@ public class Robot extends CaseHexa {
 		this.cristal = cristal;
 	}
 
+	public boolean estCharge() {
+		return this.cristal != null;
+	}
+
 	public Cristal getCristal() {
 		return this.cristal;
 	}
 
-	public void decharger() {
+	public void decharger(Base base) {
 		this.cristal = null;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public void setPosY(int posY) {
+		this.posX = posY;
 	}
 
 	public String toString() {

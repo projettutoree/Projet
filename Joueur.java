@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Joueur {
 
-	private static String[] couleurs = { "ROUGE", "JAUNE", "VERT", "BLEU", "VIOLET", "ROSE" };
+	private static String[] couleurs = {"ROUGE", "JAUNE", "VERT", "BLEU", "VIOLET", "ROSE"};
 
 	private int identifiant;
 	private int points;
@@ -19,8 +19,8 @@ public class Joueur {
 
 	// Méthode appelée une seule fois, lors de l'initialisation
 	// de la partie.
-	public void addRobot(Robot robot) {
-		this.alRobot.add(robot);
+	public void addRobot(Robot r) {
+		this.alRobot.add(r);
 	}
 
 	public void gagnePoints(int points) {
