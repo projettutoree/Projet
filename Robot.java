@@ -1,15 +1,13 @@
 public class Robot extends CaseHexa {
-
-	private int numero;
+	
 	private String[] instructions;
 
 	private int dir;
 
 	private Cristal cristal;
 
-	public Robot(int posX, int posY, int dir, int numero) {
+	public Robot(int posX, int posY, int dir) {
 		super(posX, posY);
-		this.numero = numero;
 		this.dir = dir;
 		this.poussable = true;
 
@@ -28,10 +26,6 @@ public class Robot extends CaseHexa {
 
 	public int getPosY() {
 		return this.posY;
-	}
-
-	public int getNumero() {
-		return this.numero;
 	}
 
 	public void tourner(int sens) {

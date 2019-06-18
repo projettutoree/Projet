@@ -18,6 +18,10 @@ public class Joueur {
 		this.alRobot = new ArrayList<Robot>();
 	}
 
+	public void permutterOrdre(int idRobot, int ordre1, int ordre2) {
+
+	}
+
 	// Méthode appelée une seule fois, lors de l'initialisation
 	// de la partie.
 	public void setRobots(Robot robot) {
