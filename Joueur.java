@@ -2,24 +2,19 @@ import java.util.ArrayList;
 
 public class Joueur {
 
-	// Les ID du tableau ordresString correspond aux ID du tableau
-	// ORDRES_STRING. Il a y donc 2 Avancer, 1 AvancerX2 etc...
-	private static final int[]    ORDRES_MAX = {2,1,3,3,2,2,2};
+	private static String[] couleurs     = { "ROUGE", "JAUNE", "VERT",
+	                                       "BLEU", "VIOLET", "ROSE"};
 
-	public static final String[]  ORDRES_STRING = { "Avancer", "AvancerX2" ,
-	                                                "TournerSensAntiHoraire", "TournerSensHoraire",
-	                                                "Charger", "Deposer", "Zap"};
-
-	private static final String[] COULEURS = { "ROUGE", "JAUNE", "VERT",
-	                                           "BLEU", "VIOLET", "ROSE"};
-
+	public  static String[] ordresString = { "AVANCER X1", "AVANCER X2" ,
+                                               "TOURNER GAUCHE", "TOURNER DROITE",
+						           "CHARGER", "DEPOSER", "ZAP"};
 
 	private int identifiant;
 	private int points;
-	//private boolean jokerDouble;
+	private boolean jokerDouble;
 	private boolean hasModifieProg;
+	private int[] etatOrdres;
 	private ArrayList<Robot> alRobot;
-	private ArrayList<Ordre> alOrdre;
 
 	public Joueur(int identifiant) {
 		this.identifiant = identifiant;
@@ -27,9 +22,11 @@ public class Joueur {
 		this.points = 0;
 		this.hasModifieProg = false;
 		this.alRobot = new ArrayList<Robot>();
-		this.alOrdre = new ArrayList<Ordre>();
 
-		this.initOrdres();
+		// Les ID du tableau ordresString correspond aux ID du tableau
+		// etatOrdres. Il a y donc 2 ZAP, 2 AVANCER X1 etc...
+		this.etatOrdres = new int[]{2,1,3,3,2,2,2};
+
 	}
 
 	/**
@@ -40,22 +37,21 @@ public class Joueur {
 	  * Sinon, retourne false;
 	  */
 
-	public boolean ajouterOrdre(int idRobot, String ordre, int idOrdre) {
+	public boolean ajouterOrdre(int idRobot, int emplacementOrdre, int idOrdre) {
 		// Phase d'ajout de l'ordre
-		for(Ordre o : alOrdre) {
-			if(o.getClass().getName().equals(ordre))
-			{
-				Ordre ordreRetour = this.alRobot.get(idRobot).setOrdre(idOrdre, o);
-				alOrdre.remove(o);
-
-				// On remet la tuile ordre au joueur s'il y en avait une dans le robot
-				if(ordreRetour != null)
-					alOrdre.add(ordreRetour);
-
-				return true;
-			}
+		if(this.etatOrdres[emplacementOrdre] <= 0) {
+			return false;
 		}
-		return false;
+		else {
+			this.etatOrdres[emplacementOrdre]--;
+			String ordreRetour = this.alRobot.get(idRobot).setOrdre(idOrdre, Joueur.ordresString[emplacementOrdre]);
+
+			// On remet la tuile ordre au joueur s'il y en avait une
+			if(ordreRetour != null) {
+				this.etatOrdres[getEmplacementOrdre(ordreRetour)]++;
+			}
+			return true;
+		}
 	}
 
 	/**
@@ -64,8 +60,8 @@ public class Joueur {
 	  * Sinon, return false
 	  */
 	public boolean permutterOrdre(int idRobot, int idOrdre1, int idOrdre2) {
-		Ordre ordre1Temp = this.alRobot.get(idRobot).getOrdre(idOrdre1);
-		Ordre ordre2Temp = this.alRobot.get(idRobot).getOrdre(idOrdre2);
+		String ordre1Temp = this.alRobot.get(idRobot).getOrdre(idOrdre1);
+		String ordre2Temp = this.alRobot.get(idRobot).getOrdre(idOrdre2);
 		if(ordre1Temp != null || ordre2Temp != null) {
 			this.alRobot.get(idRobot).setOrdre(idOrdre1, ordre2Temp);
 			this.alRobot.get(idRobot).setOrdre(idOrdre2, ordre1Temp);
@@ -82,35 +78,16 @@ public class Joueur {
 	  * Sinon, ne fait rien et retourne false
 	  */
 	public boolean retirerOrdre(int idRobot, int idOrdre) {
-		Ordre ordreTemp = this.alRobot.get(idRobot).retirerOrdre(idOrdre);
+		String ordreTemp = this.alRobot.get(idRobot).retirerOrdre(idOrdre);
 		if(ordreTemp != null) {
-			alOrdre.add(ordreTemp);
+			this.etatOrdres[getEmplacementOrdre(ordreTemp)]++;
 			return true;
 		}
 		return false;
 	}
 
-	/**
-	  * Retire toutes les tuiles ordres du robot, et les replace dans le
-	  * stock de tuiles du joueur. Return true s'il y avait au moins une
-	  * tuile présente dans le robot. Return false sinon
-	  */
-
 	public boolean redemarrer(int idRobot) {
-		Boolean aRedemarre = false;
-
-		for(Ordre o : this.alRobot.get(idRobot).redemarrer()) {
-			System.out.println(o);
-			if(o != null) {
-				alOrdre.add(o);
-				aRedemarre = true;
-			}
-		}
-		return aRedemarre;
-	}
-
-	private void initOrdres() {
-
+		return this.alRobot.get(idRobot).redemarrer();
 	}
 
 
@@ -136,18 +113,11 @@ public class Joueur {
 	  * Méthode afin de retrouver l'emplacement sous forme de int
 	  * d'un ordre lorsque l'on connait son nom
 	  */
-	// private int getEmplacementOrdre(String nomOrdre) {
-	// 	for(int i = 0; i < Joueur.ordresString.length; i++) {
-	// 		if(Joueur.ordresString[i].equals(nomOrdre))
-	// 			return i;
-	// 	}
-	// 	return -1;
-	// }
-
-	public void afficherOrdresEtat()
-	{
-		for(Ordre o : alOrdre) {
-			System.out.println(o.getClass().getName());
+	private int getEmplacementOrdre(String nomOrdre) {
+		for(int i = 0; i < Joueur.ordresString.length; i++) {
+			if(Joueur.ordresString[i].equals(nomOrdre))
+				return i;
 		}
+		return -1;
 	}
 }

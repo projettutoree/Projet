@@ -1,16 +1,15 @@
 public class Robot extends CaseHexa {
 
-	private static final int NB_ORDRES = 3;
-
 	private int dir;
-	private Ordre[] ordres;
+	private String[] ordres = {"TOURNER DROITE","TOURNER DROITE","ZAP"};
 	private Cristal cristal;
 
 	public Robot(int posX, int posY, int dir) {
 		super(posX, posY);
 		this.dir = dir;
 		this.poussable = true;
-		this.ordres = new Ordre[Robot.NB_ORDRES];
+
+		this.cristal = null;
 	}
 
 	public void avancer(int posX, int posY) {
@@ -23,14 +22,14 @@ public class Robot extends CaseHexa {
 		this.dir = (this.dir + sens + 6) % 6;
 	}
 
-	// public void setOrdres(String[] ordres) {
-	// 	this.ordres = ordres;
-	// }
+	public void setOrdres(String[] ordres) {
+		this.ordres = ordres;
+	}
 
 	// Retourne un String ordre au cas où on permutte deux ordres
-	public Ordre setOrdre(int idOrdre, Ordre ordre) {
-		Ordre ancienOrdre = this.ordres[idOrdre];
-		this.ordres[idOrdre] = ordre;
+	public String setOrdre(int idOrdre, String ordreString) {
+		String ancienOrdre = this.ordres[idOrdre];
+		this.ordres[idOrdre] = ordreString;
 		return ancienOrdre;
 	}
 
@@ -38,22 +37,20 @@ public class Robot extends CaseHexa {
 	 * Retire et renvoi l'ordre de l'emplacement s'il n'est pas null, et le place à
 	 * null Renvoie null sinon
 	 */
-	public Ordre retirerOrdre(int idOrdre) {
+	public String retirerOrdre(int idOrdre) {
 		if (this.ordres[idOrdre] != null) {
-			Ordre retour = this.ordres[idOrdre];
+			String retour = this.ordres[idOrdre];
 			this.ordres[idOrdre] = null;
 			return retour;
 		} else
 			return null;
 	}
 
-	public Ordre[] redemarrer() {
-		Ordre[] ordresRetour = new Ordre[Robot.NB_ORDRES];
-		for (int i = 0; i < Robot.NB_ORDRES; i++) {
-			ordresRetour[i] = ordres[i];
-			ordres[i] = null;
+	public boolean redemarrer() {
+		for (String o : ordres) {
+			o = null;
 		}
-		return ordresRetour;
+		return true;
 	}
 
 	public void charger(Cristal cristal) {
@@ -73,11 +70,11 @@ public class Robot extends CaseHexa {
 		return this.dir;
 	}
 
-	public Ordre[] getOrdres() {
+	public String[] getOrdres() {
 		return this.ordres;
 	}
 
-	public Ordre getOrdre(int idOrdre) {
+	public String getOrdre(int idOrdre) {
 		return this.ordres[idOrdre];
 	}
 
@@ -92,10 +89,6 @@ public class Robot extends CaseHexa {
 	public String toString() {
 		String s = "";
 		s += this.getClass().getName()+":(" + posX + ";" + posY + ";" + dir + ")";
-		s += "\n";
-		 if(ordres[0] != null) s += ordres[0].getClass().getName() + " ";
-		 if(ordres[1] != null) s += ordres[1].getClass().getName() + " ";
-             if(ordres[2] != null) s += ordres[2].getClass().getName();
 		return s;
 	}
 }
