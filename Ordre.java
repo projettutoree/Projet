@@ -14,4 +14,8 @@ public abstract class Ordre {
 	}
 
 	public static void action() {}
+
+	public static setCase(ArrayList<CaseHexa> alCase){
+		this.alCase = alCase;
+	}
 }
