@@ -1,5 +1,7 @@
 public class Robot extends CaseHexa {
 
+	private static final int NB_ORDRES = 3;
+
 	private int dir;
 	private String[] ordres;
 	private Cristal cristal;
@@ -8,9 +10,7 @@ public class Robot extends CaseHexa {
 		super(posX, posY);
 		this.dir = dir;
 		this.poussable = true;
-
-		this.cristal = null;
-		this.ordres = null;
+		this.ordres = new String[Robot.NB_ORDRES];
 	}
 
 	public void avancer(int posX, int posY) {
@@ -47,11 +47,13 @@ public class Robot extends CaseHexa {
 			return null;
 	}
 
-	public boolean redemarrer() {
-		for (String o : ordres) {
-			o = null;
+	public String[] redemarrer() {
+		String[] ordresRetour = new String[Robot.NB_ORDRES];
+		for (int i = 0; i < Robot.NB_ORDRES; i++) {
+			ordresRetour[i] = ordres[i];
+			ordres[i] = null;
 		}
-		return true;
+		return ordresRetour;
 	}
 
 	public void charger(Cristal cristal) {
@@ -90,6 +92,7 @@ public class Robot extends CaseHexa {
 	public String toString() {
 		String s = "";
 		s += this.getClass().getName()+":(" + posX + ";" + posY + ";" + dir + ")";
+		s += "\n" +  ordres[0] + " " + ordres[1] + " " + ordres[2];
 		return s;
 	}
 }

@@ -87,8 +87,23 @@ public class Joueur {
 		return false;
 	}
 
+	/**
+	  * Retire toutes les tuiles ordres du robot, et les replace dans le
+	  * stock de tuiles du joueur. Return true s'il y avait au moins une
+	  * tuile présente dans le robot. Return false sinon
+	  */
+
 	public boolean redemarrer(int idRobot) {
-		return this.alRobot.get(idRobot).redemarrer();
+		Boolean aRedemarre = false;
+
+		for(String o : this.alRobot.get(idRobot).redemarrer()) {
+			System.out.println(o);
+			if(o != null) {
+				this.etatOrdres[getEmplacementOrdre(o)]++;
+				aRedemarre = true;
+			}
+		}
+		return aRedemarre;
 	}
 
 
@@ -120,5 +135,14 @@ public class Joueur {
 				return i;
 		}
 		return -1;
+	}
+
+	public String afficherOrdresEtat()
+	{
+		String s = "";
+		for(int i = 0; i < etatOrdres.length; i++) {
+			s += Joueur.ordresString[i] + " : " +  etatOrdres[i] + "\n";
+		}
+		return s;
 	}
 }
