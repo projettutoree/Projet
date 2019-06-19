@@ -9,5 +9,9 @@ public abstract class Ordre {
 		action();
 	}
 
+	public static void setCase(ArrayList<CaseHexa> alCase) {
+		Ordre.alCase = alCase;
+	}
+
 	public static void action() {}
 }
