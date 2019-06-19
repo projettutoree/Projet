@@ -7,10 +7,9 @@ public class FramePrincipale extends JFrame
 	
 	private MenuBar menu;
 	private PanelAnnonce pnlAnnonce;
-	private PanelJoueur pnlJoueur;
-
-	// test
+	private PanelEnsJoueur pnlEnsJoueur;
 	
+	private JScrollPane rightScrollPane;
 	
 	public FramePrincipale()
 	{
@@ -24,12 +23,11 @@ public class FramePrincipale extends JFrame
 		this.menu = new MenuBar();
 		this.setJMenuBar(this.menu);
 		
-		this.pnlJoueur = new PanelJoueur();
+		this.pnlEnsJoueur = new PanelEnsJoueur();
 		this.pnlAnnonce = new PanelAnnonce();
-		JScrollPane rightScrollPane = new JScrollPane(this.pnlJoueur);
+		this.rightScrollPane = new JScrollPane(this.pnlEnsJoueur);
 
-	
-		this.add(rightScrollPane, BorderLayout.EAST);
+		this.add(this.rightScrollPane, BorderLayout.EAST);
 		this.add(this.pnlAnnonce, BorderLayout.NORTH);
 		
 		this.setVisible(true);
@@ -38,6 +36,7 @@ public class FramePrincipale extends JFrame
 	public void maj()
 	{
 		this.pnlAnnonce.maj();
+		//this.pnlEnsJoueur.maj();
 	}
 	
 	public static void main(String[] args) 
@@ -49,7 +48,7 @@ public class FramePrincipale extends JFrame
 			try {
 				Thread.sleep(1000);
 			} catch (Exception e) {
-				
+				e.printStackTrace();
 			}
 		}
 	}
