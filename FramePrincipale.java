@@ -8,6 +8,9 @@ public class FramePrincipale extends JFrame
 	private MenuBar menu;
 	private PanelAnnonce pnlAnnonce;
 	private PanelJoueur pnlJoueur;
+
+	// test
+	
 	
 	public FramePrincipale()
 	{
@@ -23,8 +26,10 @@ public class FramePrincipale extends JFrame
 		
 		this.pnlJoueur = new PanelJoueur();
 		this.pnlAnnonce = new PanelAnnonce();
-		
-		this.add(this.pnlJoueur, BorderLayout.EAST);
+		JScrollPane rightScrollPane = new JScrollPane(this.pnlJoueur);
+
+	
+		this.add(rightScrollPane, BorderLayout.EAST);
 		this.add(this.pnlAnnonce, BorderLayout.NORTH);
 		
 		this.setVisible(true);
