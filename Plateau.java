@@ -9,17 +9,26 @@ public class Plateau {
 	private ArrayList<Joueur> alJoueur;
 
 	private int tailleMax;
-
+	private Controleur ctrl;
 
 	private int nbJCourant = 0;
 	private int nbRCourant = 0;
 
-	public Plateau() {
+	public Plateau(Controleur ctrl) {
+		this.ctrl = ctrl;
 		this.alCase = new ArrayList<CaseHexa>();
 		this.alJoueur = new ArrayList<Joueur>();
 		this.init(Clavier.lire_int());
 		Ordre.setTailleMax(this.tailleMax);
 		Ordre.setCase(this.alCase);
+	}
+
+	public int getTailleMax() {
+		return this.tailleMax;
+	}
+
+	public ArrayList<CaseHexa> getCases() {
+		return this.alCase;
 	}
 
 	public void init(int nbJoueur) {
@@ -51,7 +60,7 @@ public class Plateau {
 							int index2 = information[i].indexOf(",", index + 1);
 							Robot robot = new Robot(Integer.parseInt(information[i].substring(0, index)),
 									Integer.parseInt(information[i].substring(index + 1, index2)),
-									Integer.parseInt(information[i].substring(index2 + 1)));
+									Integer.parseInt(information[i].substring(index2 + 1)), j);
 							this.alCase.add(robot);
 							j.addRobot(robot);
 						}
@@ -154,16 +163,4 @@ public class Plateau {
 	}
 
 	public ArrayList<Joueur> getJoueurs() {return this.alJoueur;}
-
-	public static void main(String[] args) {
-		Plateau p = new Plateau();
-		System.out.println(p);
-		Joueur j = p.getJoueurs().get(0);
-		//j.ajouterOrdre(0,0,0);
-		j.ajouterOrdre(0, "AvancerX2", 0);
-		j.ajouterOrdre(0, "Avancer", 1);
-		j.ajouterOrdre(0, "Zap", 2);
-		p.executerInstructions();
-		System.out.println(p);
-	}
 }

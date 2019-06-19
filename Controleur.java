@@ -19,12 +19,23 @@ public class Controleur {
 		return this.ihm.lireClavier();
 	}
 
-	public void afficherPlateau(ArrayList<CaseHexa> alCase, Robot rob, int tailleMax) {
-		this.ihm.afficherPlateau(alCase, rob, tailleMax);
+	public void afficherPlateau() {
+		this.ihm.afficherPlateau(this.metier.getCases(), this.metier.getTailleMax());
 	}
 
+	public Plateau getPlateau() {return this.metier;}
+
 	public static void main(String[] args) {
-		new Controleur();
+		Controleur c =  new Controleur();
+		Plateau p = c.getPlateau();
+		Joueur j = p.getJoueurs().get(0);
+		//j.ajouterOrdre(0,0,0);
+		/*j.ajouterOrdre(0, "AvancerX2", 0);
+		j.ajouterOrdre(0, "Avancer", 1);
+		j.ajouterOrdre(0, "Zap", 2);
+		p.executerInstructions();*/
+		c.afficherPlateau();
+		System.out.println(p);
 	}
 
 }

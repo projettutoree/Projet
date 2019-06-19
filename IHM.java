@@ -17,37 +17,34 @@ public class IHM {
 		return Clavier.lireString();
 	}
 
-	public void afficherPlateau(ArrayList<CaseHexa> alCase,Robot rob,int tailleMax) {
-		String s = "";
+	public void afficherPlateau(ArrayList<CaseHexa> alCase, int tailleMax) {
 		boolean caseOccupee;
-		System.out.println(alCase);
-		s += rob.toString() + "\n";
 		if ((tailleMax / 2) % 4 == 0)
-			s += "   ";
+			Console.print( "   ");
 		if ((tailleMax / 2) % 4 == 1)
-			s += "      ";
+			Console.print( "      ");
 		for (int j = 0; j <= (Math.abs(tailleMax / 2)) / 2; j++) {
-			s += "      ";
+			Console.print( "      ");
 		}
 		for (int j = 0; j <= tailleMax - (Math.abs(tailleMax / 2)); j++) {
-			s += "_____ ";
+			Console.print( "_____ ");
 		}
-		s += "\n";
+		Console.print( "\n");
 
 		for (int i = 0; i <= tailleMax; i++) {
 			for (int k = 0; k < 3; k++) {
 				if (i % 2 != (tailleMax / 2) % 4)
-					s += "   ";
+					Console.print( "   ");
 				for (int j = 0; j <= (Math.abs(tailleMax / 2 - i)) / 2; j++) {
-					s += "      ";
+					Console.print( "      ");
 				}
 				if (i < Math.abs(tailleMax / 2) && k == 2)
-					s += "__";
+					Console.print( "__");
 				else
-					s += "  ";
+					Console.print( "  ");
 				if (k != 2) {
 					for (int j = 0; j <= tailleMax - (Math.abs(tailleMax / 2 - i)); j++) {
-						s += "|  ";
+						Console.print( "|  ");
 						CaseHexa objet = null;
 						if (k == 1) {
 							for (CaseHexa c : alCase) {
@@ -55,24 +52,38 @@ public class IHM {
 									objet = c;
 							}
 						}
-						if (objet != null)
-							s += objet.getClass().getName().charAt(0);
+						if (objet != null) {
+							if (objet.getJoueur() != null) {
+								switch (objet.getJoueur().getId()) {
+									case 1 : Console.couleurFont ( CouleurConsole.CYAN ); break;
+									case 2 : Console.couleurFont ( CouleurConsole.ROUGE ); break;
+									case 3 : Console.couleurFont ( CouleurConsole.BLEU ); break;
+									case 4 : Console.couleurFont ( CouleurConsole.VERT ); break;
+									case 5 : Console.couleurFont ( CouleurConsole.MAUVE ); break;
+									case 6 : Console.couleurFont ( CouleurConsole.JAUNE ); break;
+								}
+							}
+							if (objet.getClass().getName().equals("Robot"))
+								Console.print( objet.toString());
+							else
+								Console.print( objet.getClass().getName().charAt(0));
+							Console.normal();
+						}
 						else
-							s += " ";
-						s += "  ";
+							Console.print( " ");
+						Console.print( "  ");
 					}
 				} else {
 					for (int j = 0; j <= tailleMax - (Math.abs(tailleMax / 2 - i)); j++) {
-						s += "|_____";
+						Console.print( "|_____");
 					}
 				}
-				s += "|";
+				Console.print( "|");
 				if (i < Math.abs(tailleMax / 2) && k == 2)
-					s += "__";
-				s += "\n";
+					Console.print( "__");
+				Console.print( "\n");
 			}
 		}
-		System.out.println(s);
 	}
 
 }

@@ -176,6 +176,10 @@ public class Joueur {
 		return this.points;
 	}
 
+	public int getId() {
+		return this.identifiant;
+	}
+
 	/**
 	  * Méthode afin de retrouver l'emplacement sous forme de int
 	  * d'un ordre lorsque l'on connait son nom

@@ -35,6 +35,8 @@ public abstract class CaseHexa {
 		this.posY = posY;
 	}
 
+	public Joueur getJoueur() {return null;}
+
 	public String toString() {
 		return this.getClass().getName() + ":(" + posX + "," + posY + ")";
 	}
