@@ -60,7 +60,10 @@ public class Robot extends CaseHexa {
 		this.cristal = cristal;
 	}
 
-	public void deposer() {
+	public void deposer(Base b) {
+		if (b != null) {
+			b.getJoueur().ajouterCristal(this.cristal);
+		}
 		this.cristal = null;
 	}
 

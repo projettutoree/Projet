@@ -8,7 +8,7 @@ public class Base extends CaseHexa {
 		this.poussable = false;
 	}
 
-	public void recoitCristal(Cristal cristal) {
-		this.monJoueur.recoitCristal(cristal);
+	public Joueur getJoueur() {
+		return this.monJoueur;
 	}
 }

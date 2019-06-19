@@ -1,9 +1,9 @@
 public class Deposer extends Ordre {
 
-	public static boolean checkDepot(Robot robotTemp) {
-		if (!robotTemp.estCharge())
+	public static boolean checkDepot() {
+		if (!Deposer.robot.estCharge())
 			return false;
-		int[] coordsCaseSvt = Ordre.getCaseSvt(robotTemp.getPosX(), robotTemp.getPosY(), robotTemp.getDir());
+		int[] coordsCaseSvt = Ordre.getCaseSvt(Deposer.robot.getPosX(), Deposer.robot.getPosY(), Deposer.robot.getDir());
 		for (CaseHexa c : Ordre.alCase) {
 			if (c.getPosX() == coordsCaseSvt[0] && c.getPosY() == coordsCaseSvt[1]) {
 				if (!c.getClass().getName().equals("Base"))
@@ -15,30 +15,29 @@ public class Deposer extends Ordre {
 		return !(Ordre.estOOB(coordsCaseSvt));
 	}
 
-	public static Base getBaseDevant(Robot robotTemp) {
-		int[] coordsCaseSvt = Ordre.getCaseSvt(robotTemp.getPosX(), robotTemp.getPosY(), robotTemp.getDir());
+	public static Base getBaseDevant() {
+		int[] coordsCaseSvt = Ordre.getCaseSvt(Deposer.robot.getPosX(), Deposer.robot.getPosY(), Deposer.robot.getDir());
 		for (CaseHexa c : Ordre.alCase) {
 			if (c.getPosX() == coordsCaseSvt[0] && c.getPosY() == coordsCaseSvt[1]) {
 				if (c.getClass().getName().equals("Base"))
-					return (Base) Ordre.alCase.remove(Ordre.alCase.indexOf(c));
+					return (Base)c;
 			}
 		}
 		return null;
 	}
 
-	public static void deposer(Robot robotTemp) {
-		if (Deposer.checkDepot(robotTemp)) {
-			Base b = Deposer.getBaseDevant(robotTemp);
+	public void action() {
+		if (Deposer.checkDepot()) {
+			Base b = Deposer.getBaseDevant();
 			if (b == null) {
-				Ordre.alCase.add(robotTemp.getCristal());
-				int[] coordsCaseSvt = Ordre.getCaseSvt(robotTemp.getPosX(), robotTemp.getPosY(), robotTemp.getDir());
+				Ordre.alCase.add(Deposer.robot.getCristal());
+				int[] coordsCaseSvt = Ordre.getCaseSvt(Deposer.robot.getPosX(), Deposer.robot.getPosY(), Deposer.robot.getDir());
 				Ordre.alCase.get(Ordre.alCase.size() - 1).setPosX(coordsCaseSvt[0]);
 				Ordre.alCase.get(Ordre.alCase.size() - 1).setPosY(coordsCaseSvt[1]);
 				System.out.println(coordsCaseSvt[0]);
 				System.out.println(coordsCaseSvt[1]);
-				robotTemp.deposer();
 			}
-			robotTemp.deposer();
+			Deposer.robot.deposer(b);
 		}
 	}
 
