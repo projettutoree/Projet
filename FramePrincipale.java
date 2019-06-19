@@ -11,6 +11,8 @@ public class FramePrincipale extends JFrame
 	private PanelEnsJoueur pnlEnsJoueur;
 	private PanelInstruction pnlInstru;
 	
+	private JPanel pnlNorth;
+	
 	private JScrollPane rightScrollPane;
 	
 	public FramePrincipale()
@@ -31,10 +33,14 @@ public class FramePrincipale extends JFrame
 		this.pnlAnnonce = new PanelAnnonce();
 		this.pnlInstru = new PanelInstruction();
 		this.rightScrollPane = new JScrollPane(this.pnlEnsJoueur);
+		
+		this.pnlNorth = new JPanel( new GridLayout(2, 1) );
 
-		this.add(this.outil, BorderLayout.PAGE_START);
+		this.pnlNorth.add(this.outil);
+		this.pnlNorth.add(this.pnlAnnonce);
+
 		this.add(this.rightScrollPane, BorderLayout.EAST);
-		this.add(this.pnlAnnonce, BorderLayout.NORTH);
+		this.add(this.pnlNorth, BorderLayout.NORTH);
 		this.add(this.pnlInstru, BorderLayout.SOUTH);
 		
 		this.setVisible(true);
