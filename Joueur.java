@@ -20,6 +20,7 @@ public class Joueur {
 	private boolean hasModifieProg;
 	private ArrayList<Robot> alRobot;
 	private ArrayList<Ordre> alOrdre;
+	private ArrayList<Cristal> alCristal;
 
 	public Joueur(int identifiant) {
 		this.identifiant = identifiant;
@@ -28,6 +29,7 @@ public class Joueur {
 		this.hasModifieProg = false;
 		this.alRobot = new ArrayList<Robot>();
 		this.alOrdre = new ArrayList<Ordre>();
+		this.alCristal = new ArrayList<Cristal>();
 
 		this.initOrdres();
 	}
@@ -39,7 +41,6 @@ public class Joueur {
 	  * robot au joueur. Retourne true
 	  * Sinon, retourne false;
 	  */
-
 	public boolean ajouterOrdre(int idRobot, String ordre, int idOrdre) {
 		// Phase d'ajout de l'ordre
 		for(Ordre o : alOrdre) {
@@ -94,7 +95,6 @@ public class Joueur {
 	  * stock de tuiles du joueur. Return true s'il y avait au moins une
 	  * tuile présente dans le robot. Return false sinon
 	  */
-
 	public boolean redemarrer(int idRobot) {
 		Boolean aRedemarre = false;
 
@@ -142,7 +142,6 @@ public class Joueur {
 					case "Zap" :
 						this.alOrdre.add(new Zap());
 						break;
-
 				}
 			}
 		}
@@ -155,29 +154,28 @@ public class Joueur {
 		this.alRobot.add(r);
 	}
 
-	public void gagnePoints(int points) {
-		this.points += points;
+	public void recoitCristal(Cristal cristal) {
+		this.points += cristal.getValeur();
+		this.alCristal.add(cristal);
+	}
+
+	public int calculerPoints() {
+		int ptsTotaux = this.points;
+		for(Robot r : alRobot) {
+			if(r.getCristal() != null)
+				ptsTotaux += r.getCristal().getValeur();
+		}
+		return ptsTotaux;
 	}
 
 	public ArrayList<Robot> getRobots() {
 		return this.alRobot;
 	}
 
+	// Ne tient pas compte des robots qui possède un cristal
 	public int getPoints() {
 		return this.points;
 	}
-
-	/**
-	  * Méthode afin de retrouver l'emplacement sous forme de int
-	  * d'un ordre lorsque l'on connait son nom
-	  */
-	// private int getEmplacementOrdre(String nomOrdre) {
-	// 	for(int i = 0; i < Joueur.ordresString.length; i++) {
-	// 		if(Joueur.ordresString[i].equals(nomOrdre))
-	// 			return i;
-	// 	}
-	// 	return -1;
-	// }
 
 	public void afficherOrdresEtat()
 	{
