@@ -183,16 +183,46 @@ public class Plateau {
 		robotTemp.deposer();
 	}
 
-	public void executerInstructions(String s) {
+	public Robot robotZappe(Robot robotTemp) {
+		int[] coordsCaseSvt = this.getCaseSvt(robotTemp.getPosX(), robotTemp.getPosY(), robotTemp.getDir());
+		for (CaseHexa c : this.alCase) {
+			if (c.getPosX() == coordsCaseSvt[0] && c.getPosY() == coordsCaseSvt[1]) {
+				if (c.getClass().getName().equals("Robot"))
+					return (Robot)c;
+				else
+					return null;
+			}
+		}
+		int[] coordsCaseSvt2 = this.getCaseSvt(coordsCaseSvt[0], coordsCaseSvt[1], robotTemp.getDir());
+		for (CaseHexa c : this.alCase) {
+			if (c.getPosX() == coordsCaseSvt2[0] && c.getPosY() == coordsCaseSvt2[1]) {
+				if (c.getClass().getName().equals("Robot"))
+					return (Robot)c;
+				else
+					return null;
+			}
+		}
+		return null;
+	}
+
+	public void zap(Robot robotZappe) {
+		String action = Clavier.lireString();
+		if (action.equals("avancer") || action.equals("tournerSensHoraire") || action.equals("tournerSensAntiHoraire") || action.equals("ramasser") || action.equals("deposer"))
+			this.executerInstruction(action, robotZappe);
+	}
+
+	public void executerInstruction(String s, Robot robotZappe) {
 		Robot robotTemp = this.rob;// this.alJoueur.get(this.nbJCourant).getRobots()[this.nbRCourant];
 		// String[] tabInstr = robotTemp.getInstructions();
+		if (robotZappe != null)
+			robotTemp = robotZappe;
 		String[] tabInstr = { s, "", "" };
 
 		for (int i = 0; i < 3; i++) {
 			switch (tabInstr[i]) {
 			case "avancer":
 				if (this.checkDeplacement(robotTemp, robotTemp.getDir(), false))
-					this.deplacer(rob, rob.getDir());
+					this.deplacer(robotTemp, robotTemp.getDir());
 				break;
 			case "tournerSensHoraire":
 				robotTemp.tourner(1);
@@ -208,9 +238,12 @@ public class Plateau {
 				if (this.checkDepot(robotTemp))
 					this.deposer(robotTemp);
 				break;
-			/*
-			 * case "zap" : this.zap(); break;
-			 */
+			case "zap" :
+				Robot robotVictime = this.robotZappe(robotTemp);
+				if (robotVictime != null)
+					this.zap(robotVictime);
+				break;
+
 			default:
 				break;
 			}
@@ -313,7 +346,7 @@ public class Plateau {
 	}
 
 	public void depRobot(String s) {
-		this.executerInstructions(s);
+		this.executerInstruction(s, null);
 	}
 
 	public static void main(String[] args) {
