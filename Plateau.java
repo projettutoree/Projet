@@ -208,10 +208,10 @@ public class Plateau {
 	public void zap(Robot robotZappe) {
 		String action = Clavier.lireString();
 		if (action.equals("avancer") || action.equals("tournerSensHoraire") || action.equals("tournerSensAntiHoraire") || action.equals("ramasser") || action.equals("deposer"))
-			this.executerInstructions(action, robotZappe);
+			this.executerInstruction(action, robotZappe);
 	}
 
-	public void executerInstructions(String s, Robot robotZappe) {
+	public void executerInstruction(String s, Robot robotZappe) {
 		Robot robotTemp = this.rob;// this.alJoueur.get(this.nbJCourant).getRobots()[this.nbRCourant];
 		// String[] tabInstr = robotTemp.getInstructions();
 		if (robotZappe != null)
@@ -346,7 +346,7 @@ public class Plateau {
 	}
 
 	public void depRobot(String s) {
-		this.executerInstructions(s, null);
+		this.executerInstruction(s, null);
 	}
 
 	public static void main(String[] args) {
