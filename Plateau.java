@@ -84,53 +84,21 @@ public class Plateau {
 		this.nbJCourant = (this.nbJCourant++) % this.alJoueur.size();
 	}
 
-	public void executerInstructions(Robot robotZappe) {
+	public void executerInstructions() {
 		Joueur jCourant = this.alJoueur.get(0);
-		for (Robot r : jCourant.getRobots()){
-			Ordre.executer(r);
+		for (Robot r : jCourant.getRobots()) {
+			for (Ordre o : r.getOrdres())
+				if (o != null)
+				{
+					Ordre.setRobot(r);
+					o.action();
+				}
 		}
-	}
-
-	private int[] getCaseSvt(int x, int y, int dir) {
-		int[] tabCoord = { x, y };
-		switch (dir) {
-		case 0:
-			if (tabCoord[0] > this.tailleMax / 2)
-				tabCoord[1]++;
-			tabCoord[0]--;
-			break;
-		case 1:
-			tabCoord[1]++;
-			break;
-		case 2:
-			if (tabCoord[0] < this.tailleMax / 2)
-				tabCoord[1]++;
-			tabCoord[0]++;
-			// tabCoord[1]++;
-			break;
-		case 3:
-			if (tabCoord[0] >= this.tailleMax / 2)
-				tabCoord[1]--;
-			tabCoord[0]++;
-			break;
-		case 4:
-			tabCoord[1]--;
-			break;
-		case 5:
-			if (tabCoord[0] <= this.tailleMax / 2)
-				tabCoord[1]--;
-			tabCoord[0]--;
-			break;
-		default:
-			break;
-		}
-		return tabCoord;
 	}
 
 	public String toString() {
 		String s = "";
 		boolean caseOccupee;
-		System.out.println(alCase);
 		if ((this.tailleMax / 2) % 4 == 0)
 			s += "   ";
 		if ((this.tailleMax / 2) % 4 == 1)
@@ -192,8 +160,10 @@ public class Plateau {
 		System.out.println(p);
 		Joueur j = p.getJoueurs().get(0);
 		//j.ajouterOrdre(0,0,0);
-		System.out.println(j.getRobots());
-		p.executerInstructions(null);
+		j.ajouterOrdre(0, "AvancerX2", 0);
+		j.ajouterOrdre(0, "Avancer", 1);
+		j.ajouterOrdre(0, "Zap", 2);
+		p.executerInstructions();
 		System.out.println(p);
 	}
 }

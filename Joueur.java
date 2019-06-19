@@ -43,8 +43,7 @@ public class Joueur {
 	public boolean ajouterOrdre(int idRobot, String ordre, int idOrdre) {
 		// Phase d'ajout de l'ordre
 		for(Ordre o : alOrdre) {
-			if(o.getClass().getName().equals(ordre))
-			{
+			if(o.getClass().getName().equals(ordre)) {
 				Ordre ordreRetour = this.alRobot.get(idRobot).setOrdre(idOrdre, o);
 				alOrdre.remove(o);
 

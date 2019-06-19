@@ -1,8 +1,8 @@
 public class Avancer extends Ordre {
 
-	public static void avancer(Robot robotTemp) {
-		if (Avancer.checkDeplacement(robotTemp, robotTemp.getDir(), false))
-			Avancer.deplacer(robotTemp, robotTemp.getDir());
+	public void action() {
+		if (Avancer.checkDeplacement(Avancer.robot, Avancer.robot.getDir(), false))
+			Avancer.deplacer(Avancer.robot, Avancer.robot.getDir());
 	}
 
 	public static boolean checkDeplacement(CaseHexa objet, int dir, boolean objetPousse) {

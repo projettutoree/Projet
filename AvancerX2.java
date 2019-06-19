@@ -1,14 +1,14 @@
 public class AvancerX2 extends Ordre {
 
-	public static void action() {
-		Avancer.action();
-		Avancer.action();
-		
+	public void action() {
+		Avancer a = new Avancer();
+		a.setRobot(this.robot);
+		a.action();
+		a.action();
 	}
 
 	public void actionDebug() {
-		Avancer.actionDebug();
-		Avancer.actionDebug();
+
 	}
 
 }
