@@ -109,8 +109,44 @@ public class Joueur {
 		return aRedemarre;
 	}
 
-	private void initOrdres() {
 
+	public void initOrdres() {
+		String s;
+		for(int i = 0; i < Joueur.ORDRES_MAX.length; i++) {
+			for (int j = 0; j < Joueur.ORDRES_MAX[i]; j++) {
+				s = Joueur.ORDRES_STRING[i];
+				switch(s) {
+					case "Avancer" :
+						this.alOrdre.add(new Avancer());
+						break;
+
+					case "AvancerX2" :
+						this.alOrdre.add(new AvancerX2());
+						break;
+
+					case "TournerSensAntiHoraire" :
+						this.alOrdre.add(new TournerSensAntiHoraire());
+						break;
+
+					case "TournerSensHoraire" :
+						this.alOrdre.add(new TournerSensHoraire());
+						break;
+
+					case "Charger" :
+						this.alOrdre.add(new Charger());
+						break;
+
+					case "Deposer" :
+						this.alOrdre.add(new Deposer());
+						break;
+
+					case "Zap" :
+						this.alOrdre.add(new Zap());
+						break;
+
+				}
+			}
+		}
 	}
 
 
