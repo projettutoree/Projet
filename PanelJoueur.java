@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class PanelJoueur extends JPanel
 {
-
+	private JScrollPane scrBar;
 	private JPanel pnl;
 	
 	public PanelJoueur()

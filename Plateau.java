@@ -7,20 +7,19 @@ import iut.algo.Clavier;
 public class Plateau {
 	private ArrayList<CaseHexa> alCase;
 	private ArrayList<Joueur> alJoueur;
-	private Robot rob;
 
 	private int tailleMax;
 
-	private int nbJCourant;
+
+	private int nbJCourant = 0;
 	private int nbRCourant = 0;
 
 	public Plateau() {
 		this.alCase = new ArrayList<CaseHexa>();
 		this.alJoueur = new ArrayList<Joueur>();
 		this.init(Clavier.lire_int());
-		/* this.alJoueur = new ArrayList<Joueur>(); */
-		this.rob = new Robot(3, 5, 1);
-		this.alCase.add(this.rob);
+		Ordre.setTailleMax(this.tailleMax);
+		Ordre.setCase(this.alCase);
 	}
 
 	public void init(int nbJoueur) {
@@ -36,6 +35,7 @@ public class Plateau {
 
 					char identifiant = information[0].charAt(0);
 					Joueur j = new Joueur(Integer.parseInt("" + identifiant));
+					this.alJoueur.add(j);
 
 					for (int i = 1; i < information.length; i++) {
 
@@ -84,169 +84,10 @@ public class Plateau {
 		this.nbJCourant = (this.nbJCourant++) % this.alJoueur.size();
 	}
 
-	public boolean checkDeplacement(CaseHexa objet, int dir, boolean objetPousse) {
-		int[] coordsCaseSvt = this.getCaseSvt(objet.getPosX(), objet.getPosY(), dir);
-		CaseHexa temp = null;
-		for (CaseHexa c : this.alCase) {
-			if (c.getPosX() == coordsCaseSvt[0] && c.getPosY() == coordsCaseSvt[1]) {
-				temp = c;
-			}
-		}
-		if (temp != null) {
-			if (objetPousse)
-				return false;
-			if (!temp.estPoussable())
-				return false;
-			return this.checkDeplacement(temp, dir, true);
-		}
-		if (objetPousse) {
-			if (!this.estOOB(coordsCaseSvt))
-				this.deplacer(objet, dir);
-		}
-		return !(this.estOOB(coordsCaseSvt));
-	}
-
-	public void deplacer(CaseHexa objet, int dir) {
-		int[] coordsCaseSvt = this.getCaseSvt(objet.getPosX(), objet.getPosY(), dir);
-		objet.avancer(coordsCaseSvt[0], coordsCaseSvt[1]);
-	}
-
-	public boolean checkRamassage(Robot robotTemp) {
-		if (robotTemp.estCharge())
-			return false;
-		int[] coordsCaseSvt = this.getCaseSvt(robotTemp.getPosX(), robotTemp.getPosY(), robotTemp.getDir());
-		for (CaseHexa c : this.alCase) {
-			if (c.getPosX() == coordsCaseSvt[0] && c.getPosY() == coordsCaseSvt[1]) {
-				if (c.getClass().getName().equals("Cristal"))
-					return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean estOOB(int[] coords) {
-		if (coords[0] < 0 || coords[1] < 0)
-			return true;
-		if (coords[0] > this.tailleMax || coords[1] > this.tailleMax - (Math.abs(this.tailleMax / 2 - coords[0])))
-			return true;
-		return false;
-	}
-
-	public boolean checkDepot(Robot robotTemp) {
-		if (!robotTemp.estCharge())
-			return false;
-		int[] coordsCaseSvt = this.getCaseSvt(robotTemp.getPosX(), robotTemp.getPosY(), robotTemp.getDir());
-		for (CaseHexa c : this.alCase) {
-			if (c.getPosX() == coordsCaseSvt[0] && c.getPosY() == coordsCaseSvt[1]) {
-				if (!c.getClass().getName().equals("Base"))
-					return false;
-				else
-					return true;
-			}
-		}
-		return !(this.estOOB(coordsCaseSvt));
-	}
-
-	public Cristal getCristalDevant(Robot robotTemp) {
-		int[] coordsCaseSvt = this.getCaseSvt(robotTemp.getPosX(), robotTemp.getPosY(), robotTemp.getDir());
-		for (CaseHexa c : this.alCase) {
-			if (c.getPosX() == coordsCaseSvt[0] && c.getPosY() == coordsCaseSvt[1]) {
-				if (c.getClass().getName().equals("Cristal"))
-					return (Cristal) this.alCase.remove(this.alCase.indexOf(c));
-			}
-		}
-		return null;
-	}
-
-	public Base getBaseDevant(Robot robotTemp) {
-		int[] coordsCaseSvt = this.getCaseSvt(robotTemp.getPosX(), robotTemp.getPosY(), robotTemp.getDir());
-		for (CaseHexa c : this.alCase) {
-			if (c.getPosX() == coordsCaseSvt[0] && c.getPosY() == coordsCaseSvt[1]) {
-				if (c.getClass().getName().equals("Base"))
-					return (Base) this.alCase.remove(this.alCase.indexOf(c));
-			}
-		}
-		return null;
-	}
-
-	public void deposer(Robot robotTemp) {
-		Base b = this.getBaseDevant(robotTemp);
-		if (b == null) {
-			this.alCase.add(robotTemp.getCristal());
-			int[] coordsCaseSvt = this.getCaseSvt(robotTemp.getPosX(), robotTemp.getPosY(), robotTemp.getDir());
-			this.alCase.get(this.alCase.size() - 1).setPosX(coordsCaseSvt[0]);
-			this.alCase.get(this.alCase.size() - 1).setPosY(coordsCaseSvt[1]);
-			System.out.println(coordsCaseSvt[0]);
-			System.out.println(coordsCaseSvt[1]);
-			robotTemp.deposer();
-		}
-		robotTemp.deposer();
-	}
-
-	public Robot robotZappe(Robot robotTemp) {
-		int[] coordsCaseSvt = this.getCaseSvt(robotTemp.getPosX(), robotTemp.getPosY(), robotTemp.getDir());
-		for (CaseHexa c : this.alCase) {
-			if (c.getPosX() == coordsCaseSvt[0] && c.getPosY() == coordsCaseSvt[1]) {
-				if (c.getClass().getName().equals("Robot"))
-					return (Robot)c;
-				else
-					return null;
-			}
-		}
-		int[] coordsCaseSvt2 = this.getCaseSvt(coordsCaseSvt[0], coordsCaseSvt[1], robotTemp.getDir());
-		for (CaseHexa c : this.alCase) {
-			if (c.getPosX() == coordsCaseSvt2[0] && c.getPosY() == coordsCaseSvt2[1]) {
-				if (c.getClass().getName().equals("Robot"))
-					return (Robot)c;
-				else
-					return null;
-			}
-		}
-		return null;
-	}
-
-	public void zap(Robot robotZappe) {
-		String action = Clavier.lireString();
-		if (action.equals("avancer") || action.equals("tournerSensHoraire") || action.equals("tournerSensAntiHoraire") || action.equals("ramasser") || action.equals("deposer"))
-			this.executerInstruction(action, robotZappe);
-	}
-
-	public void executerInstruction(String s, Robot robotZappe) {
-		Robot robotTemp = this.rob;// this.alJoueur.get(this.nbJCourant).getRobots()[this.nbRCourant];
-		// String[] tabInstr = robotTemp.getInstructions();
-		if (robotZappe != null)
-			robotTemp = robotZappe;
-		String[] tabInstr = { s, "", "" };
-
-		for (int i = 0; i < 3; i++) {
-			switch (tabInstr[i]) {
-			case "avancer":
-				if (this.checkDeplacement(robotTemp, robotTemp.getDir(), false))
-					this.deplacer(robotTemp, robotTemp.getDir());
-				break;
-			case "tournerSensHoraire":
-				robotTemp.tourner(1);
-				break;
-			case "tournerSensAntiHoraire":
-				robotTemp.tourner(-1);
-				break;
-			case "ramasser":
-				if (this.checkRamassage(robotTemp))
-					robotTemp.charger(this.getCristalDevant(robotTemp));
-				break;
-			case "deposer":
-				if (this.checkDepot(robotTemp))
-					this.deposer(robotTemp);
-				break;
-			case "zap" :
-				Robot robotVictime = this.robotZappe(robotTemp);
-				if (robotVictime != null)
-					this.zap(robotVictime);
-				break;
-
-			default:
-				break;
-			}
+	public void executerInstructions(Robot robotZappe) {
+		Joueur jCourant = this.alJoueur.get(0);
+		for (Robot r : jCourant.getRobots()){
+			Ordre.executer(r);
 		}
 	}
 
@@ -290,7 +131,6 @@ public class Plateau {
 		String s = "";
 		boolean caseOccupee;
 		System.out.println(alCase);
-		s += this.rob.toString() + "\n";
 		if ((this.tailleMax / 2) % 4 == 0)
 			s += "   ";
 		if ((this.tailleMax / 2) % 4 == 1)
@@ -345,15 +185,15 @@ public class Plateau {
 		return s;
 	}
 
-	public void depRobot(String s) {
-		this.executerInstruction(s, null);
-	}
+	public ArrayList<Joueur> getJoueurs() {return this.alJoueur;}
 
 	public static void main(String[] args) {
 		Plateau p = new Plateau();
-		while (true) {
-			System.out.println(p);
-			p.depRobot(Clavier.lireString());
-		}
+		System.out.println(p);
+		Joueur j = p.getJoueurs().get(0);
+		//j.ajouterOrdre(0,0,0);
+		System.out.println(j.getRobots());
+		p.executerInstructions(null);
+		System.out.println(p);
 	}
 }

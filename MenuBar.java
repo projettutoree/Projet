@@ -5,31 +5,15 @@ import javax.swing.*;
 public class MenuBar extends JMenuBar implements ActionListener
 {
 	//Fichier
-	private JMenuItem normal;
-	private JMenuItem scenar;
-		
-	//Fichier
 	private JMenuItem quitter;
 	private JMenuItem nouveau;
 
+	//A propos de
+	private JMenuItem aProposDe;
+
 	public MenuBar()
 	{
-		//Choix du mode de jeu
-		JMenu mode = new JMenu ("Mode de jeu");
-
-		//Normal
-		this.normal = new JMenuItem("Normal");
-		mode.add(this.normal);
-		this.normal.addActionListener(this);
-		
-		//Scenario
-		this.scenar = new JMenuItem("Scenario");
-		mode.add(this.scenar);
-		this.scenar.addActionListener(this);
-		
-		this.add(mode);
-		
-		//Menu Fichier
+		//Déclaration du menu Fichier
 		JMenu fichier = new JMenu ("Fichier");
 
 		//Nouveau
@@ -43,7 +27,11 @@ public class MenuBar extends JMenuBar implements ActionListener
 		fichier.add(this.quitter);
 		this.quitter.addActionListener(this);
 		this.add(fichier);
-		
+
+		//Déclaration du menu a propos
+		this.aProposDe = new JMenuItem ("A propos de ...");
+		this.add(this.aProposDe);
+		this.aProposDe.addActionListener(this);
 	}
 	
 	public void actionPerformed(ActionEvent e)

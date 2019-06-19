@@ -7,29 +7,20 @@ public class FramePrincipale extends JFrame
 	
 	private MenuBar menu;
 	private PanelAnnonce pnlAnnonce;
-	private PanelJoueur pnlJoueur;
-
-	// test
-	
 	
 	public FramePrincipale()
 	{
 		//this.ctrl = ctrl;
 		
 		this.setTitle("Twin Tin Bots");
-		this.setSize(1000, 700);
+		this.setSize(1000, 1000);
 		this.setLayout( new BorderLayout() );
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.menu = new MenuBar();
 		this.setJMenuBar(this.menu);
 		
-		this.pnlJoueur = new PanelJoueur();
 		this.pnlAnnonce = new PanelAnnonce();
-		JScrollPane rightScrollPane = new JScrollPane(this.pnlJoueur);
-
-	
-		this.add(rightScrollPane, BorderLayout.EAST);
 		this.add(this.pnlAnnonce, BorderLayout.NORTH);
 		
 		this.setVisible(true);
