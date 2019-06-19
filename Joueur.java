@@ -33,13 +33,6 @@ public class Joueur implements Comparable<Joueur> {
 		this.initOrdres();
 	}
 
-	public void ajouterCristal(Cristal c) {
-		if (c != null) {
-			this.gagnePoints(c.getValeur());
-			this.alCristaux.add(c);
-		}
-	}
-
 	/**
 	  * Phase d'ajout de l'ordre. On retire un ordre et le place sur le robot
 	  * si possible. Si un ordre était déjà présent à l'emplacement indiqué,
@@ -47,7 +40,6 @@ public class Joueur implements Comparable<Joueur> {
 	  * robot au joueur. Retourne true
 	  * Sinon, retourne false;
 	  */
-
 	public boolean ajouterOrdre(int idRobot, String ordre, int idOrdre) {
 		// Phase d'ajout de l'ordre
 		for(Ordre o : alOrdre) {
@@ -102,7 +94,6 @@ public class Joueur implements Comparable<Joueur> {
 	  * stock de tuiles du joueur. Return true s'il y avait au moins une
 	  * tuile présente dans le robot. Return false sinon
 	  */
-
 	public boolean redemarrer(int idRobot) {
 		Boolean aRedemarre = false;
 
@@ -150,7 +141,6 @@ public class Joueur implements Comparable<Joueur> {
 					case "Zap" :
 						this.alOrdre.add(new Zap());
 						break;
-
 				}
 			}
 		}
@@ -176,10 +166,15 @@ public class Joueur implements Comparable<Joueur> {
 		return ptsTotaux;
 	}
 
+	public int getId() {
+		return this.identifiant;
+	}
+
 	public ArrayList<Robot> getRobots() {
 		return this.alRobot;
 	}
 
+	// Ne tient pas compte des robots qui possède un cristal
 	public int getPoints() {
 		return this.points;
 	}
@@ -197,17 +192,9 @@ public class Joueur implements Comparable<Joueur> {
 		return points;
 	}
 
-	public int getId() {
-		return this.identifiant;
-	}
-
 	// Négatif  = moins de points que l'autreJoueur
 	// Positif = plus de points que l'autreJoueur
 	public int compareTo(Joueur autreJoueur) {
 		return this.calculerPoints() - autreJoueur.calculerPoints();
-	}
-
-	public String toString() {
-		return "Joueur " + this.identifiant + " : " + this.points + " points";
 	}
 }
