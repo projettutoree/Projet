@@ -1,26 +1,45 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Collections;
 import java.io.FileReader;
 import iut.algo.Clavier;
 
 public class Plateau {
+	private static final int REF_POINT = 13;
+
 	private ArrayList<CaseHexa> alCase;
 	private ArrayList<Joueur> alJoueur;
 
+	private Controleur ctrl;
 	private int tailleMax;
-
+	private int toursRestants;
+	private ArrayList<Joueur> alGagnants;
 
 	private int nbJCourant = 0;
 	private int nbRCourant = 0;
 
-	public Plateau() {
+	public Plateau(Controleur ctrl) {
+		this.ctrl = ctrl;
+		this.toursRestants = 3;
+		this.alGagnants = null;
+
 		this.alCase = new ArrayList<CaseHexa>();
 		this.alJoueur = new ArrayList<Joueur>();
+
 		this.init(Clavier.lire_int());
 		Ordre.setTailleMax(this.tailleMax);
 		Ordre.setCase(this.alCase);
 	}
+
+
+	public void jeu() {
+		while(!partieFinie()) {
+
+		}
+		//this.setGagnant();
+	}
+
 
 	public void init(int nbJoueur) {
 		try {
@@ -96,6 +115,71 @@ public class Plateau {
 		}
 	}
 
+	public boolean partieFinie() {
+		// REF_POINT est par défaut à 13, ce qui donne 11 points pour gagner
+		// pour une partie à 2 joueurs, 10 pour 3 joueurs etc.
+		for(Joueur j : alJoueur) {
+			if(j.getPoints() == Plateau.REF_POINT - alJoueur.size()) {
+				this.alGagnants.add(j);
+				return true;
+			}
+		}
+
+		if(this.toursRestants == 0)
+			return true;
+
+		return false;
+	}
+
+	public void setGagnant() {
+		if(toursRestants == 0) {
+			// Tri des joueurs en fonction de leurs points
+			Collections.sort(this.alJoueur);
+			this.alGagnants.add(this.alJoueur.get(0));
+
+			// On crée une liste de joueur qui sont au même nombre de points
+			for(int i = 0; i < this.alJoueur.size() -1; i++) {
+				if(this.alJoueur.get(i).compareTo(this.alJoueur.get(i+1)) == 0)
+				{
+					this.alGagnants.add(this.alJoueur.get(i+1));
+				}
+				else
+					break;
+			}
+
+			// Dans le cas où il y a une égalité entre cpt joueurs
+			// Vérification des cristaux de valeur 2
+			this.alGagnants = egaliteCristaux(2);
+
+			// Vérification des cristaux de valeur 3
+			this.alGagnants = egaliteCristaux(3);
+
+			//Vérification au niveau des types de cristaux dans la base
+			for(int i = 0; i < this.alGagnants.size() -1; i++) {
+				if(this.alGagnants.get(i)  .getTypeCristaux() !=
+				   this.alGagnants.get(i+1).getTypeCristaux())
+					this.alGagnants.remove(i+1);
+				}
+		}
+	}
+
+	public ArrayList<Joueur> getGagnant() {
+		return this.alGagnants;
+	}
+
+	/**
+	  * Compare les joueurs en fonction de la valeur des cristaux qu'ils possèdent
+	  * Retire le joueur de la liste s'il a moins de cristaux qu'un autre joueur
+	  */
+	private ArrayList<Joueur> egaliteCristaux(int valeur) {
+		for(int i = 0; i < this.alGagnants.size() -1; i++) {
+			if(this.alGagnants.get(i)  .getValeurCristaux(3) !=
+			   this.alGagnants.get(i+1).getValeurCristaux(3))
+				this.alGagnants.remove(i+1);
+			}
+		return this.alGagnants;
+	}
+
 	public String toString() {
 		String s = "";
 		boolean caseOccupee;
@@ -155,15 +239,15 @@ public class Plateau {
 
 	public ArrayList<Joueur> getJoueurs() {return this.alJoueur;}
 
-	public static void main(String[] args) {
-		Plateau p = new Plateau();
-		System.out.println(p);
-		Joueur j = p.getJoueurs().get(0);
-		//j.ajouterOrdre(0,0,0);
-		j.ajouterOrdre(0, "AvancerX2", 0);
-		j.ajouterOrdre(0, "Avancer", 1);
-		j.ajouterOrdre(0, "Zap", 2);
-		p.executerInstructions();
-		System.out.println(p);
-	}
+	// public static void main(String[] args) {
+	// 	Plateau p = new Plateau(ctrl);
+	// 	System.out.println(p);
+	// 	Joueur j = p.getJoueurs().get(0);
+	// 	//j.ajouterOrdre(0,0,0);
+	// 	j.ajouterOrdre(0, "AvancerX2", 0);
+	// 	j.ajouterOrdre(0, "Avancer", 1);
+	// 	j.ajouterOrdre(0, "Zap", 2);
+	// 	p.executerInstructions();
+	// 	System.out.println(p);
+	// }
 }

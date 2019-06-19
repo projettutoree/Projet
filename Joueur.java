@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Joueur {
+public class Joueur implements Comparable<Joueur> {
 
 	// Les ID du tableau ordresString correspond aux ID du tableau
 	// ORDRES_STRING. Il a y donc 2 Avancer, 1 AvancerX2 etc...
@@ -18,18 +18,17 @@ public class Joueur {
 	private int points;
 	//private boolean jokerDouble;
 	private boolean hasModifieProg;
+	private Base base;
 	private ArrayList<Robot> alRobot;
 	private ArrayList<Ordre> alOrdre;
-	private ArrayList<Cristal> alCristal;
 
-	public Joueur(int identifiant) {
+	public Joueur(int identifiant/*, Base base*/) {
 		this.identifiant = identifiant;
-
+		this.base = new Base(1,1, this);
 		this.points = 0;
 		this.hasModifieProg = false;
 		this.alRobot = new ArrayList<Robot>();
 		this.alOrdre = new ArrayList<Ordre>();
-		this.alCristal = new ArrayList<Cristal>();
 
 		this.initOrdres();
 	}
@@ -154,9 +153,8 @@ public class Joueur {
 		this.alRobot.add(r);
 	}
 
-	public void recoitCristal(Cristal cristal) {
-		this.points += cristal.getValeur();
-		this.alCristal.add(cristal);
+	public void gagnePoint(int points) {
+		this.points += points;
 	}
 
 	public int calculerPoints() {
@@ -177,10 +175,22 @@ public class Joueur {
 		return this.points;
 	}
 
-	public void afficherOrdresEtat()
-	{
-		for(Ordre o : alOrdre) {
-			System.out.println(o.getClass().getName());
+	public int getTypeCristaux() {
+		return this.base.calculerTypeCristaux();
+	}
+
+	public int getValeurCristaux(int valeur) {
+		int points =  0;
+		for(Cristal c : this.base.getCristaux()) {
+			if(c.getValeur() == valeur)
+				points += valeur;
 		}
+		return points;
+	}
+
+	// Négatif  = moins de points que l'autreJoueur
+	// Positif = plus de points que l'autreJoueur
+	public int compareTo(Joueur autreJoueur) {
+		return this.calculerPoints() - autreJoueur.calculerPoints();
 	}
 }
