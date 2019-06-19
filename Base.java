@@ -31,4 +31,7 @@ public class Base extends CaseHexa {
 	public ArrayList<Cristal> getCristaux() {
 		return this.alCristaux;
 	}
+	
+	public Joueur getJoueur() {
+		return this.monJoueur;
 }

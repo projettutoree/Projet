@@ -32,7 +32,6 @@ public class Plateau {
 		Ordre.setCase(this.alCase);
 	}
 
-
 	public void jeu() {
 		while(!partieFinie()) {
 
@@ -40,6 +39,13 @@ public class Plateau {
 		//this.setGagnant();
 	}
 
+	public int getTailleMax() {
+		return this.tailleMax;
+	}
+
+	public ArrayList<CaseHexa> getCases() {
+		return this.alCase;
+	}
 
 	public void init(int nbJoueur) {
 		try {
@@ -70,7 +76,7 @@ public class Plateau {
 							int index2 = information[i].indexOf(",", index + 1);
 							Robot robot = new Robot(Integer.parseInt(information[i].substring(0, index)),
 									Integer.parseInt(information[i].substring(index + 1, index2)),
-									Integer.parseInt(information[i].substring(index2 + 1)));
+									Integer.parseInt(information[i].substring(index2 + 1)), j);
 							this.alCase.add(robot);
 							j.addRobot(robot);
 						}

@@ -5,9 +5,11 @@ public class Robot extends CaseHexa {
 	private int dir;
 	private Ordre[] ordres;
 	private Cristal cristal;
+	private Joueur  joueur;
 
-	public Robot(int posX, int posY, int dir) {
+	public Robot(int posX, int posY, int dir, Joueur joueur) {
 		super(posX, posY);
+		this.joueur = joueur;
 		this.dir = dir;
 		this.poussable = true;
 		this.ordres = new Ordre[Robot.NB_ORDRES];
@@ -60,7 +62,10 @@ public class Robot extends CaseHexa {
 		this.cristal = cristal;
 	}
 
-	public void deposer() {
+	public void deposer(Base b) {
+		if (b != null) {
+			b.getJoueur().ajouterCristal(this.cristal);
+		}
 		this.cristal = null;
 	}
 
@@ -89,13 +94,19 @@ public class Robot extends CaseHexa {
 		return this.cristal;
 	}
 
+	public Joueur getJoueur() {
+		return this.joueur;
+	}
+
 	public String toString() {
-		String s = "";
-		s += this.getClass().getName()+":(" + posX + ";" + posY + ";" + dir + ")";
-		s += "\n";
-		 if(ordres[0] != null) s += ordres[0].getClass().getName() + " ";
-		 if(ordres[1] != null) s += ordres[1].getClass().getName() + " ";
-             if(ordres[2] != null) s += ordres[2].getClass().getName();
-		return s;
+		switch (this.dir) {
+			case 0 : return "↗";
+			case 1 : return "→";
+			case 2 : return "↘";
+			case 3 : return "↙";
+			case 4 : return "←";
+			case 5 : return "↖";
+		}
+		return "";
 	}
 }
