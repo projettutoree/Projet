@@ -68,6 +68,13 @@ public class Robot extends CaseHexa {
 		}
 		this.cristal = null;
 	}
+	
+	public void deposer(Robot r) {
+		if (r != null) {
+			r.charger(this.cristal);
+			this.cristal = null;
+		}
+	}
 
 	/***********************/
 	/* Accesseurs */
