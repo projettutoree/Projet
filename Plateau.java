@@ -10,6 +10,7 @@ public class Plateau {
 
 	private ArrayList<CaseHexa> alCase;
 	private ArrayList<Joueur> alJoueur;
+	private ArrayList<Cristal> alReserveCristaux;
 
 	private Controleur ctrl;
 	private int tailleMax;
@@ -46,6 +47,7 @@ public class Plateau {
 	public ArrayList<CaseHexa> getCases() {
 		return this.alCase;
 	}
+
 
 	public void init(int nbJoueur) {
 		try {
@@ -90,6 +92,14 @@ public class Plateau {
 								Integer.parseInt(information[i].substring(index + 1, index2)),
 								Integer.parseInt(information[i].substring(index2 + 1)));
 						this.alCase.add(cristal);
+					}
+				}
+				if(information[0].matches("R")) {
+					for(int i = 1; i < information.length; i++) {
+						int index = information[i].indexOf(",");
+						Cristal cristal = new Cristal(Integer.parseInt(information[i].substring(0,index)),
+						                              -1,-1);
+						this.alReserveCristaux.add(cristal);
 					}
 				}
 			}
