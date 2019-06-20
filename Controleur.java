@@ -9,7 +9,8 @@ public class Controleur {
 
 	public Controleur() {
 		this.ihm = new IHM(this);
-		this.metier = new Plateau(this);
+		this.ihm.afficherDebut();
+		this.metier = new Plateau(this, false);
 		this.ihm2 = new FramePrincipale(this);
 	}
 
@@ -44,7 +45,7 @@ public class Controleur {
 	public void maj() {
 		this.ihm2.maj();
 	}
-	public Joueur getJoueurCourant(){
+	public int getJoueurCourant(){
 		return this.metier.getJoueurCourant();
 	}
 

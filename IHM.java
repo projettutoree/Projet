@@ -4,6 +4,8 @@ import java.util.*;
 public class IHM {
 
 	private Controleur ctrl;
+	
+	private static int numJoueur;
 
 	public IHM(Controleur ctrl) {
 		ctrl = ctrl;
@@ -15,6 +17,22 @@ public class IHM {
 
 	public String lireClavier() {
 		return Clavier.lireString();
+	}
+	
+	public void afficherDebut() {
+		Console.println("Bienvenue dans le jeu Twin Tin Bots");
+		Console.println("Combien de joueur vont-jouer ? [2-6]");
+	}
+	
+	public void afficherMenu() {
+		Console.println( "Tour du joueur " + this.ctrl.getJoueurCourant() );
+		Console.println( "Que voulez-vous faire ?" );
+		Console.println( "1. Ajouter un ordre" );
+		Console.println( "2. Changer un ordre" );
+		Console.println( "3. Permutter deux ordres" );
+		Console.println( "4. Supprimer un ordre" );
+		Console.println( "5. Redémarrer un robot" );
+		Console.println( "6. Exécuter les actions" );
 	}
 
 	public void afficherPlateau(ArrayList<CaseHexa> alCase, int tailleMax) {
