@@ -109,6 +109,52 @@ public class Plateau {
 			e.printStackTrace();
 		}
 	}
+	
+	public void chargerScenar(String fichier) {
+		scenar = new ArrayList<String>();
+		try {
+			Scanner sc = new Scanner (new FileReader(fichier));
+			String  ligne;
+			while (sc.hasNextLine()){
+				scenar.add(sc.nextLine());
+			}
+		}
+		catch (Exception e) {e.printStackTrace();}
+	}
+
+	public void interpreterLigneScenar(int ind) {
+		if (ind >= 0 && ind < scenar.size()) {
+			String ligne = scenar.get(ind);
+			if (ligne.charAt(0) == 'J') {
+				Joueur j = this.alJoueur.get(Integer.parseInt(String.valueOf(ligne.charAt(1)))-1);
+				this.nbJCourant = Integer.parseInt(String.valueOf(ligne.charAt(1)))-1;
+				if (ligne.charAt(4) == 'R') {
+					Robot r = j.getRobots().get(Integer.parseInt(String.valueOf(ligne.charAt(5))) - 1);
+					String action = "";
+					for (int i=8; ligne.charAt(i) != '('; i++) {
+						action += ligne.charAt(i);
+					}
+					switch (action) {
+						case "ajouterOrdre":
+							j.ajouterOrdre(Integer.parseInt(String.valueOf(ligne.charAt(5)))-1, ligne.substring(ligne.indexOf("(")+1, ligne.indexOf(",")), Integer.parseInt(ligne.substring(ligne.indexOf(", ")+2, ligne.indexOf(")")))-1);
+							break;
+						case "retirerOrdre":
+							j.retirerOrdre(Integer.parseInt(String.valueOf(ligne.charAt(5)))-1, Integer.parseInt(ligne.substring(ligne.indexOf("(")+1, ligne.indexOf(")")))-1);
+							break;
+						case "permuterOrdre":
+							j.permuterOrdre(Integer.parseInt(String.valueOf(ligne.charAt(5)))-1, Integer.parseInt(ligne.substring(ligne.indexOf("(")+1, ligne.indexOf(",")))-1, Integer.parseInt(ligne.substring(ligne.indexOf(", ")+2, ligne.indexOf(")")))-1);
+							break;
+						case "redemarrer":
+							j.redemarrer(Integer.parseInt(String.valueOf(ligne.charAt(5)))-1);
+							break;
+					}
+				}
+				if (ligne.charAt(4) == 'e') {
+					this.executerInstructions();
+				}
+			}
+		}
+	}
 
 	public int getJoueurCourant() {
 		return this.nbJCourant;
