@@ -8,22 +8,24 @@ public class BarreOutil extends JToolBar
 	
 	public BarreOutil()
 	{
+		this.setFloatable(false);
+		
 		//On crée la barre d'outil et y ajoute les boutons.
 		JButton button = null;
-		button = makeButton("Pause","Pause");
+		button = makeButton("pause","Pause");
 		this.add(button);
-		button = makeButton("Play","Jouer");
+		button = makeButton("play","Jouer");
 		this.add(button);
-		button = makeButton("GoBack","Précédent");
+		button = makeButton("Fleche_gauche","Précédent");
 		this.add(button);
-		button = makeButton("GoAfter","Suivant");
+		button = makeButton("Fleche_droite","Suivant");
 		this.add(button);
 	}
 
 	//On crée un bouton, on lui donne une image et on renvoi ce bouton
 	public JButton makeButton(String imgName, String altText)
 	{
-		String imgLocation = "./images/" + imgName + ".png";
+		String imgLocation = "./images/Outils/" + imgName + ".png";
 		URL    imageURL    = BarreOutil.class.getResource(imgLocation);
 
 		JButton button = new JButton();
