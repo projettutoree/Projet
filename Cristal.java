@@ -11,12 +11,19 @@ public class Cristal extends CaseHexa {
 		return this.valeur;
 	}
 
-	public String toString() {
+	public String getCouleur() {
 		String s = "";
-		if(valeur == 2) s += "Bleu";
-		if(valeur == 3) s += "Vert";
-		if(valeur == 4) s += "Violet";
+		if (valeur == 2)
+			s += "Bleu";
+		if (valeur == 3)
+			s += "Vert";
+		if (valeur == 4)
+			s += "Violet";
 
 		return s;
+	}
+
+	public String toString() {
+		return "" + this.valeur;
 	}
 }

@@ -26,7 +26,7 @@ public class Robot extends CaseHexa {
 	}
 
 	// public void setOrdres(String[] ordres) {
-	// 	this.ordres = ordres;
+	// this.ordres = ordres;
 	// }
 
 	// Retourne un String ordre au cas où on permutte deux ordres
@@ -73,7 +73,6 @@ public class Robot extends CaseHexa {
 	/* Accesseurs */
 	/***********************/
 
-
 	public int getDir() {
 		return this.dir;
 	}
@@ -94,13 +93,18 @@ public class Robot extends CaseHexa {
 		return this.cristal;
 	}
 
+	public Joueur getJoueur() {
+		return this.monJoueur;
+	}
+
 	public String toString() {
-		String s = "";
-		s += this.getClass().getName()+":(" + posX + ";" + posY + ";" + dir + ")";
-		s += "\n";
-		 if(ordres[0] != null) s += ordres[0].getClass().getName() + " ";
-		 if(ordres[1] != null) s += ordres[1].getClass().getName() + " ";
-             if(ordres[2] != null) s += ordres[2].getClass().getName();
+		String s = "R";
+		/*
+		 * s += this.getClass().getName() + ":(" + posX + ";" + posY + ";" + dir + ")";
+		 * s += "\n"; if (ordres[0] != null) s += ordres[0].getClass().getName() + " ";
+		 * if (ordres[1] != null) s += ordres[1].getClass().getName() + " "; if
+		 * (ordres[2] != null) s += ordres[2].getClass().getName();
+		 */
 		return s;
 	}
 }

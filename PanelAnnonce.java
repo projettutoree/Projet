@@ -3,14 +3,14 @@ import javax.swing.*;
 
 public class PanelAnnonce extends JPanel 
 {
-	//private Controleur ctrl;
-	
 	private int numJoueur;
 	private JLabel annonceJoueur;
 	
-	public PanelAnnonce()
+	private int nbJoueur;
+	
+	public PanelAnnonce(int nbJoueur)
 	{
-		//this.ctrl = ctrl;
+		this.nbJoueur = nbJoueur;
 		
 		this.numJoueur = 1;
 		this.annonceJoueur = new JLabel("Tour du joueur " + this.numJoueur);
@@ -20,8 +20,7 @@ public class PanelAnnonce extends JPanel
 	
 	public void maj()
 	{
-		// int tmp = this.ctrl.getNumJCourant();
-		int tmp = (this.numJoueur++)%7;
+		int tmp = (this.numJoueur++)%this.nbJoueur;
 		if (tmp == 0) 
 		{
 			tmp = 1;
