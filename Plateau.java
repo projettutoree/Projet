@@ -27,6 +27,7 @@ public class Plateau {
 
 		this.alCase = new ArrayList<CaseHexa>();
 		this.alJoueur = new ArrayList<Joueur>();
+		this.alReserveCristaux =  new ArrayList<Cristal>();
 
 		this.init(Clavier.lire_int());
 		Ordre.setTailleMax(this.tailleMax);
@@ -96,9 +97,7 @@ public class Plateau {
 				}
 				if(information[0].matches("R")) {
 					for(int i = 1; i < information.length; i++) {
-						int index = information[i].indexOf(",");
-						Cristal cristal = new Cristal(Integer.parseInt(information[i].substring(0,index)),
-						                              -1,-1);
+						Cristal cristal = new Cristal(-1,-1, Integer.parseInt(information[i].substring(0,1)));
 						this.alReserveCristaux.add(cristal);
 					}
 				}
@@ -249,6 +248,11 @@ public class Plateau {
 				s += "\n";
 			}
 		}
+		
+		for(Cristal c : alReserveCristaux) {
+			s += c.toString() + " | ";
+		}
+		s = s.substring(0, s.length -2);
 
 		return s;
 	}
