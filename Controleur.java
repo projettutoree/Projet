@@ -7,11 +7,21 @@ public class Controleur {
 	private IHM ihm;
 	private FramePrincipale ihm2;
 
-	public Controleur() {
+	public Controleur(boolean graphics) {
+		
 		this.ihm = new IHM(this);
 		this.ihm.afficherDebut();
-		this.metier = new Plateau(this, false);
+		this.metier = new Plateau(this, graphics);
 		this.ihm2 = new FramePrincipale(this);
+		
+		/*if (!graphics) {
+			this.ihm = new IHM(this);
+			this.ihm.afficherDebut();
+		}
+		else {
+			this.ihm2 = new FramePrincipale(this);
+		}
+		this.metier = new Plateau(this, graphics);*/
 	}
 
 	public int lireInt() {
@@ -60,7 +70,7 @@ public class Controleur {
 	 * c.afficherPlateau(); }
 	 */
 	public static void main(String[] args) {
-		Controleur c = new Controleur();
+		Controleur c = new Controleur(true);
 		Plateau p = c.getPlateau();
 		Joueur j = p.getJoueurs().get(0);
 		p.chargerScenar("exScenar.txt");
