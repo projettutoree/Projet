@@ -8,6 +8,11 @@ public class Charger extends Ordre {
 			if (c.getPosX() == coordsCaseSvt[0] && c.getPosY() == coordsCaseSvt[1]) {
 				if (c.getClass().getName().equals("Cristal"))
 					return true;
+				if (c.getClass().getName().equals("Robot")) {
+					Robot r = (Robot) c;
+					if (r.getCristal() != null)
+						r.deposer(Charger.robot);
+				}
 			}
 		}
 		return false;

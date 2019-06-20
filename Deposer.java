@@ -6,10 +6,14 @@ public class Deposer extends Ordre {
 		int[] coordsCaseSvt = Ordre.getCaseSvt(Deposer.robot.getPosX(), Deposer.robot.getPosY(), Deposer.robot.getDir());
 		for (CaseHexa c : Ordre.alCase) {
 			if (c.getPosX() == coordsCaseSvt[0] && c.getPosY() == coordsCaseSvt[1]) {
-				if (!c.getClass().getName().equals("Base"))
-					return false;
-				else
+				if (c.getClass().getName().equals("Base"))
 					return true;
+				if (c.getClass().getName().equals("Robot")) {
+					Robot r = (Robot) c;
+					Deposer.robot.deposer(r);
+					return false;
+				}
+
 			}
 		}
 		return !(Ordre.estOOB(coordsCaseSvt));
