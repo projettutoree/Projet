@@ -41,6 +41,13 @@ public class Controleur {
 		return this.metier.getTailleMax();
 	}
 
+	public void maj() {
+		this.ihm2.maj();
+	}
+	public Joueur getJoueurCourant(){
+		return this.metier.getJoueurCourant();
+	}
+
 	/*
 	 * public static void main(String[] args) { Controleur c = new Controleur();
 	 * Plateau p = c.getPlateau(); Joueur j = p.getJoueurs().get(0);
