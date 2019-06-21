@@ -24,15 +24,14 @@ public class IHM {
 		Console.println("Combien de joueur vont-jouer ? [2-6]");
 	}
 	
-	public void afficherMenu() {
+	public void demanderInformations() {
 		Console.println( "Tour du joueur " + this.ctrl.getJoueurCourant() );
 		Console.println( "Que voulez-vous faire ?" );
-		Console.println( "1. Ajouter un ordre" );
-		Console.println( "2. Changer un ordre" );
-		Console.println( "3. Permutter deux ordres" );
-		Console.println( "4. Supprimer un ordre" );
-		Console.println( "5. Redémarrer un robot" );
-		Console.println( "6. Exécuter les actions" );
+		Console.println( "Ajouter un ordre" );
+		Console.println( "Permutter deux ordres" );
+		Console.println( "Retirer un ordre" );
+		Console.println( "Redemarrer un robot" );
+		Console.println( "Passer" );
 	}
 
 	public void afficherPlateau(ArrayList<CaseHexa> alCase, int tailleMax) {
