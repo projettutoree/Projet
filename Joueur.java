@@ -21,9 +21,8 @@ public class Joueur implements Comparable<Joueur> {
 
 	private String couleur;
 
-	public Joueur(int identifiant/* , Base base */) {
+	public Joueur(int identifiant) {
 		this.identifiant = identifiant;
-		this.base = new Base(1, 1, this);
 		this.points = 0;
 		this.hasModifieProg = false;
 		this.alRobot = new ArrayList<Robot>();
@@ -61,13 +60,15 @@ public class Joueur implements Comparable<Joueur> {
 	}
 
 	/**
-	 * Permutte deux tuiles d'ordre sur un robot s'il en existe au moins une sur les
-	 * deux positions données. Retoune true Sinon, return false
+	 * Permute deux tuiles d'ordre sur un robot s'il en existe au moins une sur les
+	 * deux positions données et que les deux positions sont différentes, retourne true
+	 * Sinon, return false
 	 */
 	public boolean permuterOrdre(int idRobot, int idOrdre1, int idOrdre2) {
 		Ordre ordre1Temp = this.alRobot.get(idRobot).getOrdre(idOrdre1);
 		Ordre ordre2Temp = this.alRobot.get(idRobot).getOrdre(idOrdre2);
-		if (ordre1Temp != null || ordre2Temp != null) {
+		if ((ordre1Temp != null || ordre2Temp != null) &&
+		     idOrdre1 != idOrdre2) {
 			this.alRobot.get(idRobot).setOrdre(idOrdre1, ordre2Temp);
 			this.alRobot.get(idRobot).setOrdre(idOrdre2, ordre1Temp);
 			return true;
@@ -98,7 +99,6 @@ public class Joueur implements Comparable<Joueur> {
 		Boolean aRedemarre = false;
 
 		for (Ordre o : this.alRobot.get(idRobot).redemarrer()) {
-			System.out.println(o);
 			if (o != null) {
 				alOrdre.add(o);
 				aRedemarre = true;
@@ -145,6 +145,10 @@ public class Joueur implements Comparable<Joueur> {
 		}
 	}
 
+	public void setBase(Base base) {
+		this.base = base;
+	}
+
 	// Méthode appelée une seule fois, lors de l'initialisation
 	// de la partie.
 	public void addRobot(Robot r) {
@@ -181,13 +185,16 @@ public class Joueur implements Comparable<Joueur> {
 		return this.base.calculerTypeCristaux();
 	}
 
-	public int getValeurCristaux(int valeur) {
+	public int getPointsParCristaux(int valeur) {
 		int points = 0;
 		for (Cristal c : this.base.getCristaux()) {
 			if (c.getValeur() == valeur)
 				points += valeur;
 		}
 		return points;
+	}
+	public ArrayList<Ordre> getAlOrdre(){
+		return this.alOrdre;
 	}
 
 	// Négatif = moins de points que l'autreJoueur

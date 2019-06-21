@@ -1,0 +1,30 @@
+J2: R1: ajouterOrdre(AvancerX2, 1)
+J2: R1: ajouterOrdre(TournerSensAntiHoraire, 1)
+J2: R1: ajouterOrdre(TournerSensAntiHoraire, 1)
+J2: R1: ajouterOrdre(AvancerX2, 1)
+J1: R1: ajouterOrdre(Avancer, 2)
+J1: R1: ajouterOrdre(Avancer, 3)
+J1: R2: ajouterOrdre(Avancer, 2)
+J1: R2: ajouterOrdre(TournerSensAntiHoraire, 3)
+J1: executer
+J1: R1: redemarrer()
+J1: R2: redemarrer()
+J1: R1: ajouterOrdre(Charger, 2)
+J1: R1: ajouterOrdre(TournerSensHoraire, 3)
+J1: R2: ajouterOrdre(AvancerX2, 1)
+J1: R2: ajouterOrdre(TournerSensAntiHoraire, 2)
+J1: R2: ajouterOrdre(Avancer, 3)
+J1: executer
+J1: R1: ajouterOrdre(Avancer, 1)
+J1: R1: ajouterOrdre(TournerSensHoraire, 2)
+J1: R1: ajouterOrdre(AvancerX2, 3)
+J1: R2: redemarrer()
+J1: R2: ajouterOrdre(Avancer, 1)
+J1: R2: ajouterOrdre(TournerSensHoraire, 2)
+J1: R2: ajouterOrdre(Deposer, 3)
+J1: executer
+J1: executer
+J1: executer
+J1: executer
+J1: executer
+

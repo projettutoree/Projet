@@ -1,35 +1,59 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class PanelInstruction extends JPanel
-{
-	private JLabel[] tabInstru;
-	
-	public PanelInstruction()
-	{
-		this.setLayout( new FlowLayout(FlowLayout.CENTER, 20, 0) );
-		
-		this.tabInstru = new JLabel[6];
-		for (int i = 0; i < 6; i++) 
-		{
-			this.tabInstru[i] = new JLabel();
-		}
-		
-		this.initialise();
-		
-		for (int i = 0; i < 6; i++) 
-		{
-			this.add(this.tabInstru[i]);
-		}
+import java.util.ArrayList;
+
+public class PanelInstruction extends JPanel {
+	// private Arraylist<JLabel> alLbl;
+	private Controleur ctrl;
+
+	public PanelInstruction(Controleur ctrl) {
+		this.ctrl = ctrl;
+		this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
+		maj();
 	}
-	
-	private void initialise()
-	{
-		this.tabInstru[0].setIcon( new ImageIcon("./images/ordres/avancer1.png") );
-		this.tabInstru[1].setIcon( new ImageIcon("./images/ordres/avancer2.png") );
-		this.tabInstru[2].setIcon( new ImageIcon("./images/ordres/tuileGauche.png") );
-		this.tabInstru[3].setIcon( new ImageIcon("./images/ordres/tuileDroite.png") );
-		this.tabInstru[4].setIcon( new ImageIcon("./images/ordres/deposerCristal.png") );
-		this.tabInstru[5].setIcon( new ImageIcon("./images/ordres/chargerCristal.png") );
+
+	public void maj() {
+		this.removeAll();
+		String s = "";
+		// this.alLbl = new ArrayList<JLabel>();
+		Joueur joueur = this.ctrl.getJoueurCourant();
+
+		for (int i = 0; i < joueur.getAlOrdre().size(); i++) {
+			Ordre o = joueur.getAlOrdre().get(i);
+			if (o == null)
+				s = "./images/ordres/ordre_vide.png";
+			else
+				s = getLien(o.getClass().getName());
+
+			this.add(new JLabel(new ImageIcon(s)));
+
+		}
+
+		this.revalidate();
+	}
+
+	public String getLien(String s) {
+		switch (s) {
+		case "Avancer":
+			s = "./images/ordres/avancer1.png";
+			break;
+		case "AvancerX2":
+			s = "./images/ordres/avancer2.png";
+			break;
+		case "TournerSensAntiHoraire":
+			s = "./images/ordres/tuileGauche.png";
+			break;
+		case "TournerSensHoraire":
+			s = "./images/ordres/tuileDroite.png";
+			break;
+		case "Deposer":
+			s = "./images/ordres/deposerCristal.png";
+			break;
+		case "Charger":
+			s = "./images/ordres/chargerCristal.png";
+			break;
+		}
+		return s;
 	}
 }

@@ -7,21 +7,10 @@ public class Controleur {
 	private IHM ihm;
 	private FramePrincipale ihm2;
 
-	public Controleur(boolean graphics) {
-		
+	public Controleur() {
 		this.ihm = new IHM(this);
-		this.ihm.afficherDebut();
-		this.metier = new Plateau(this, graphics);
+		this.metier = new Plateau(this);
 		this.ihm2 = new FramePrincipale(this);
-		
-		/*if (!graphics) {
-			this.ihm = new IHM(this);
-			this.ihm.afficherDebut();
-		}
-		else {
-			this.ihm2 = new FramePrincipale(this);
-		}
-		this.metier = new Plateau(this, graphics);*/
 	}
 
 	public int lireInt() {
@@ -44,6 +33,10 @@ public class Controleur {
 		return this.metier.getCases();
 	}
 
+	public ArrayList<Joueur> getJoueurs() {
+		return this.metier.getJoueurs();
+	}
+
 	public Plateau getPlateau() {
 		return this.metier;
 	}
@@ -55,8 +48,33 @@ public class Controleur {
 	public void maj() {
 		this.ihm2.maj();
 	}
-	public int getJoueurCourant(){
+
+	public ArrayList<Cristal> getAlReserveCristaux() {
+		return this.metier.getAlReserveCristaux();
+	}
+
+	public Joueur getJoueurCourant() {
 		return this.metier.getJoueurCourant();
+	}
+
+	public void distribuerInformation(String choix, int idRobot, String ordreString, int idOrdre1, int idOrdre2) {
+		this.metier.tourJoueur(choix, idRobot, ordreString, idOrdre1, idOrdre2);
+	}
+
+	public IHM getIhm() {
+		return this.ihm;
+	}
+
+	public void pause() {
+		this.metier.pause();
+	}
+
+	public void play() {
+		this.metier.play();
+	}
+
+	public void chargerEtatScenar() {
+		// Faut tout reset
 	}
 
 	/*
@@ -70,16 +88,28 @@ public class Controleur {
 	 * c.afficherPlateau(); }
 	 */
 	public static void main(String[] args) {
-		Controleur c = new Controleur(true);
+		// DANS L'IHM CUI
+		// DEMANDER LE NB DE JOUEURS
+		// SI C'EST EN SCENAR
+		// SI C'EST EN SCENAR, LE NOM DU SCENAR
+
+		Controleur c = new Controleur();
 		Plateau p = c.getPlateau();
 		Joueur j = p.getJoueurs().get(0);
-		p.chargerScenar("exScenar.txt");
-		c.afficherPlateau();
-		for (int i = 0; i < 20; i++) {
-			p.interpreterLigneScenar(i);
+
+		// c.afficherPlateau();
+		if (!c.getIhm().demanderScenar())
+			p.jeu();
+		else {
+
+			p.chargerScenar("test2Joueurs.data");
+			c.afficherPlateau();
+			p.jeu();
+			c.maj();
+			c.afficherPlateau();
 		}
-		c.afficherPlateau();
-		System.out.println(j);
+
+		// System.out.println(j);
 		/*
 		 * j.ajouterOrdre(0, "TournerSensAntiHoraire", 0); j.ajouterOrdre(0, "Avancer",
 		 * 1); j.ajouterOrdre(0, "Charger", 2); p.executerInstructions();

@@ -51,4 +51,5 @@ public class MenuBar extends JMenuBar implements ActionListener
 		if (e.getSource() == this.quitter)
 			System.exit(0);
 	}
+
 }

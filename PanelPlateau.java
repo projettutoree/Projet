@@ -28,6 +28,10 @@ public class PanelPlateau extends JPanel {
 
 	}
 
+	public void maj() {
+		repaint();
+	}
+
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -66,7 +70,7 @@ public class PanelPlateau extends JPanel {
 								img = rotate(image, ((Math.PI / 3) * r.getDir() + (7 * Math.PI) / 6));
 								peindre(img, g2, i, j);
 								if (r.getCristal() != null) {
-									s += "./images/test/cristal";
+									s = "./images/test/cristal";
 									s += r.getCristal().getCouleur() + "Robot.png";
 									image = ImageIO.read(new File(s));
 									img = rotate(image, ((Math.PI / 3)) * r.getDir() + (7 * Math.PI) / 6);

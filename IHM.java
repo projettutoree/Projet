@@ -19,9 +19,31 @@ public class IHM {
 		return Clavier.lireString();
 	}
 	
-	public void afficherDebut() {
-		Console.println("Bienvenue dans le jeu Twin Tin Bots");
-		Console.println("Combien de joueur vont-jouer ? [2-6]");
+	public int afficherDebut() {
+		int nbJoueur = 0;
+		Console.println("Bienvenue dans le jeu Twin Tin Bots" );
+		Console.println("Combien de joueur vont-jouer ? [2-6]" );
+		nbJoueur = this.lireInt();
+		while (nbJoueur < 2 && nbJoueur > 6) 
+		{
+			Console.println("Erreur, veuillez choisir un nombre de joueur entre 2 et 6");
+			nbJoueur = this.lireInt();
+		}
+		return nbJoueur;
+	}
+	
+	public boolean demanderScenar() {
+		boolean modeScenar;
+		Console.println("Voulez-vous le mode scénario ? [T-F]" );
+		modeScenar = Clavier.lire_boolean();
+		return modeScenar;
+	}
+	
+	public String demanderNomScenar() {
+		String nomScenar;
+		Console.println( "Comment s'appelle le fichier scénario ?" );
+		nomScenar = this.lireClavier();
+		return nomScenar;
 	}
 	
 	public void demanderInformations() {
