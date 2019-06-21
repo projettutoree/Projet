@@ -101,8 +101,7 @@ public class Controleur {
 		if (!c.getIhm().demanderScenar())
 			p.jeu();
 		else {
-
-			p.chargerScenar("test2Joueurs.data");
+			p.chargerScenar(c.getIhm().demanderNomScenar());
 			c.afficherPlateau();
 			p.jeu();
 			c.maj();

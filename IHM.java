@@ -42,7 +42,7 @@ public class IHM {
 	public String demanderNomScenar() {
 		String nomScenar;
 		Console.println( "Comment s'appelle le fichier scénario ?" );
-		nomScenar = this.lireClavier();
+		nomScenar = this.lireClavier() + ".data";
 		return nomScenar;
 	}
 	
