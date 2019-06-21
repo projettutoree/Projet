@@ -13,6 +13,10 @@ public class Controleur {
 		this.ihm2 = new FramePrincipale(this);
 	}
 
+	public int afficherDebut() {
+		return this.ihm.afficherDebut();
+	}
+
 	public int lireInt() {
 		return this.ihm.lireInt();
 	}
@@ -103,6 +107,7 @@ public class Controleur {
 		else {
 			p.chargerScenar(c.getIhm().demanderNomScenar());
 			c.afficherPlateau();
+			c.pause();
 			p.jeu();
 			c.maj();
 			c.afficherPlateau();

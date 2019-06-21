@@ -13,18 +13,16 @@ public class Joueur implements Comparable<Joueur> {
 
 	private int identifiant;
 	private int points;
-	// private boolean jokerDouble;
-	private boolean hasModifieProg;
+	private boolean premierTourEffectue;
 	private Base base;
 	private ArrayList<Robot> alRobot;
 	private ArrayList<Ordre> alOrdre;
-
 	private String couleur;
 
 	public Joueur(int identifiant) {
 		this.identifiant = identifiant;
 		this.points = 0;
-		this.hasModifieProg = false;
+		this.premierTourEffectue = false;
 		this.alRobot = new ArrayList<Robot>();
 		this.alOrdre = new ArrayList<Ordre>();
 		this.couleur = Joueur.COULEURS[this.identifiant - 1];
@@ -61,14 +59,13 @@ public class Joueur implements Comparable<Joueur> {
 
 	/**
 	 * Permute deux tuiles d'ordre sur un robot s'il en existe au moins une sur les
-	 * deux positions données et que les deux positions sont différentes, retourne true
-	 * Sinon, return false
+	 * deux positions données et que les deux positions sont différentes, retourne
+	 * true Sinon, return false
 	 */
 	public boolean permuterOrdre(int idRobot, int idOrdre1, int idOrdre2) {
 		Ordre ordre1Temp = this.alRobot.get(idRobot).getOrdre(idOrdre1);
 		Ordre ordre2Temp = this.alRobot.get(idRobot).getOrdre(idOrdre2);
-		if ((ordre1Temp != null || ordre2Temp != null) &&
-		     idOrdre1 != idOrdre2) {
+		if ((ordre1Temp != null || ordre2Temp != null) && idOrdre1 != idOrdre2) {
 			this.alRobot.get(idRobot).setOrdre(idOrdre1, ordre2Temp);
 			this.alRobot.get(idRobot).setOrdre(idOrdre2, ordre1Temp);
 			return true;
@@ -193,8 +190,17 @@ public class Joueur implements Comparable<Joueur> {
 		}
 		return points;
 	}
-	public ArrayList<Ordre> getAlOrdre(){
+
+	public ArrayList<Ordre> getAlOrdre() {
 		return this.alOrdre;
+	}
+
+	public void setPremierTour() {
+		this.premierTourEffectue = true;
+	}
+
+	public boolean getPremierTourEffectue() {
+		return this.premierTourEffectue;
 	}
 
 	// Négatif = moins de points que l'autreJoueur

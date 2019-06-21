@@ -32,7 +32,7 @@ public class Plateau {
 		this.alJoueur = new ArrayList<Joueur>();
 		this.alReserveCristaux = new ArrayList<Cristal>();
 		this.scenar = new ArrayList<String>();
-		this.init(this.ctrl.lireInt());
+		this.init(this.ctrl.afficherDebut());
 		Ordre.setTailleMax((int) this.tailleMax);
 		Ordre.setCase(this.alCase);
 
@@ -41,32 +41,39 @@ public class Plateau {
 
 	public void jeu() {
 		while (!this.partieFinie()) {
+			int cptChoix = 0;
 			// Partie choix du joueur
-			this.choixEffectue = false;
-			while (!this.choixEffectue) {
-				// Si on est en mode scenar, la variable scenar sera forcément non vide
-				if (!scenar.isEmpty()) {
+			
+			do {
+				this.choixEffectue = false;
+				while (!this.choixEffectue) {
+					// Si on est en mode scenar, la variable scenar sera forcément non vide
+					if (!scenar.isEmpty()) {
 
-					while (!this.play) {
-						try {
-							Thread.sleep(10);
-						} catch (Exception e) {
-							// TODO: handle exception
+						while (!this.play) { 
+							try {
+								Thread.sleep(10);
+							} catch (Exception e) {
+								// TODO: handle exception
+							}
 						}
-					}
-					this.interpreterLigneScenar(this.ligneScenar++);
-					this.ctrl.maj();
-					this.ctrl.afficherPlateau();
+						this.interpreterLigneScenar(this.ligneScenar++);
+						this.ctrl.maj();
+						this.ctrl.afficherPlateau();
 
+					}
+					// Ici, l'IHM va envoyer les informations qu'il faut pour changer
+					// la valeur du booléen
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+					}
 				}
-				// Ici, l'IHM va envoyer les informations qu'il faut pour changer
-				// la valeur du booléen
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-				}
-			}
-			this.ctrl.maj();
+				this.ctrl.maj();
+				cptChoix++;
+				this.setPremierTour(cptChoix);
+				System.out.println(this.getJoueurCourant().getPremierTourEffectue());
+			} while (!this.getJoueurCourant().getPremierTourEffectue());
 
 			// Partie execution des instructions des robots
 
@@ -84,14 +91,17 @@ public class Plateau {
 		}
 	}
 
-	public void jeuScenar() {
-
+	public void chargerEtat(int dernierTour) {
+		for (int i = 0; i < dernierTour; i++) {
+			this.interpreterLigneScenar(i);
+		}
 	}
 
 	public void tourJoueur(String choix, int idRobot, String ordreString, int idOrdre1, int idOrdre2) {
 
-		System.out.println("je suis dans le tour");
-		System.out.println(choix);
+		if (choix != "Ajouter" && !this.getJoueurCourant().getPremierTourEffectue()) {
+			return;
+		}
 
 		switch (choix) {
 		case ("Ajouter"):
@@ -113,6 +123,11 @@ public class Plateau {
 			this.choixEffectue = false;
 			break;
 		}
+	}
+
+	public void setPremierTour(int cptChoix) {
+		if (cptChoix == 2)
+			this.getJoueurCourant().setPremierTour();
 	}
 
 	public void executerInstructions() {
@@ -212,7 +227,7 @@ public class Plateau {
 		for (int i = 0; i < newAlPos.size(); i++) {
 			for (Integer[] ancPos : alPos) {
 				if (newAlPos.get(i)[0] == ancPos[0] && newAlPos.get(i)[1] == ancPos[1]
-						|| newAlPos.get(i)[0] == this.tailleMax / 2 && newAlPos.get(i)[1] == this.tailleMax/2) {
+						|| newAlPos.get(i)[0] == this.tailleMax / 2 && newAlPos.get(i)[1] == this.tailleMax / 2) {
 					newAlPos.remove(newAlPos.get(i));
 				}
 			}
@@ -223,21 +238,6 @@ public class Plateau {
 					if (newAlPos.get(i)[0] == newAlPos.get(j)[0] && newAlPos.get(i)[1] == newAlPos.get(j)[1])
 						newAlPos.remove(j);
 			}
-		}
-
-		// Partie pour replacer les dernières coordonnées en fin de liste
-		/*
-		Integer[] coordTemp1 = newAlPos.get(1);
-		newAlPos.remove(1);
-		Integer[] coordTemp2 = newAlPos.get(2);
-		newAlPos.remove(2);
-		
-		newAlPos.add(coordTemp1);
-		newAlPos.add(coordTemp2);
-		*/
-		try {
-			Thread.sleep(500);
-		} catch (Exception e) {
 		}
 
 		this.programmeRecursif(newAlPos, cristal);
