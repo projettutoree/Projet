@@ -90,3 +90,38 @@ J1: R2: ajouterOrdre(TournerSensAntiHoraire, 2)
 J1: R2: ajouterOrdre(Deposer, 3)
 J1: e
 J1: e
+J1: R2: redemarrer()
+J1: R1: ajouterOrdre(TournerSensAntiHoraire, 1)
+J1: R1: ajouterOrdre(TournerSensAntiHoraire, 2)
+J1: e
+J1: R1: retirerOrdre(2)
+J1: e
+J1: R1: ajouterOrdre(Avancer, 1)
+J1: e
+J1: R1: ajouterOrdre(TournerSensAntiHoraire, 1)
+J1: R1: ajouterOrdre(TournerSensAntiHoraire, 2)
+J1: e
+J1: R1: redemarrer()
+J1: R1: ajouterOrdre(AvancerX2, 1)
+J1: R2: ajouterOrdre(Avancer, 1)
+J1: R2: ajouterOrdre(Avancer, 2)
+J1: e
+J1: e
+J1: e
+J1: R1: redemarrer()
+J1: R2: ajouterOrdre(TournerSensAntiHoraire, 3)
+J1: R2: permuterOrdre(1, 3)
+J1: R2: ajouterOrdre(TournerSensAntiHoraire, 2)
+J1: R2: ajouterOrdre(Charger, 3)
+J1: e
+J1: R2: ajouterOrdre(AvancerX2, 1)
+J1: R2: ajouterOrdre(Avancer, 2)
+J1: e
+J1: e
+J1: R2: retirerOrdre(1)
+J1: R2: ajouterOrdre(Deposer, 3)
+J1: e
+J1: R2: ajouterOrdre(TournerSensAntiHoraire, 2)
+J1: e
+J1: e
+J1: e
